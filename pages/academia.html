@@ -1,0 +1,1135 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia — ZAHYO Estudio de Arquitectura</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@200;300;400;500&family=Bebas+Neue&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0A0806;
+            --ink2: #110E09;
+            --ink3: #1A1510;
+            --bronze: #8B6914;
+            --bronze-lt: #C4960E;
+            --gold: #D4AF37;
+            --gold-dim: rgba(212,175,55,0.12);
+            --gold-glow: rgba(212,175,55,0.06);
+            --warm: #C8A882;
+            --warm-dim: #7A6248;
+            --cream: #F0E8D8;
+            --cream-dim: rgba(240,232,216,0.55);
+            --glass: rgba(255,255,255,0.03);
+            --glass-b: rgba(212,175,55,0.18);
+            --frosted: rgba(10,8,6,0.55);
+            --ff-display: 'Cormorant Garamond',serif;
+            --ff-big: 'Bebas Neue',sans-serif;
+            --ff-body: 'DM Sans',sans-serif;
+            --ff-mono: 'Inconsolata',monospace;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--ink);
+            color: var(--cream);
+            font-family: var(--ff-body);
+            font-weight: 300;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        ::selection {
+            background: var(--gold);
+            color: var(--ink);
+        }
+
+        .cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%,-50%);
+            transition: width .2s,height .2s;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(212,175,55,.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%,-50%);
+            transition: all .12s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 2px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--ink2)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bronze)
+        }
+
+        .photo-ph {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+            .photo-ph .ph-icon {
+                font-size: 1.8rem;
+                opacity: .2;
+            }
+
+            .photo-ph .ph-label {
+                font-family: var(--ff-mono);
+                font-size: .48rem;
+                letter-spacing: .18em;
+                color: rgba(212,175,55,.3);
+                text-align: center;
+                line-height: 1.7;
+            }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(1.5rem,5vw,4rem);
+            height: 72px;
+            background: var(--frosted);
+            backdrop-filter: blur(32px);
+            border-bottom: 1px solid var(--glass-b);
+        }
+
+        .nav-logo {
+            font-family: var(--ff-big);
+            font-size: 1.9rem;
+            letter-spacing: .18em;
+            color: var(--cream);
+            text-decoration: none;
+        }
+
+            .nav-logo span {
+                color: var(--gold);
+            }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+            .nav-links a {
+                font-family: var(--ff-mono);
+                font-size: .6rem;
+                letter-spacing: .2em;
+                text-transform: uppercase;
+                color: var(--warm-dim);
+                text-decoration: none;
+                transition: color .3s;
+            }
+
+                .nav-links a:hover, .nav-links a.active {
+                    color: var(--gold);
+                }
+
+        .btn-nav {
+            font-family: var(--ff-mono);
+            font-size: .6rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(212,175,55,.4);
+            padding: .5rem 1.4rem;
+            text-decoration: none;
+            transition: all .3s;
+        }
+
+            .btn-nav:hover {
+                background: var(--gold);
+                color: var(--ink);
+            }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: none;
+            padding: 4px;
+        }
+
+            .hamburger span {
+                display: block;
+                width: 26px;
+                height: 1px;
+                background: var(--cream);
+            }
+
+        .mob-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10,8,6,.97);
+            backdrop-filter: blur(32px);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .4s;
+        }
+
+            .mob-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .mob-overlay a {
+                font-family: var(--ff-big);
+                font-size: 3rem;
+                letter-spacing: .1em;
+                color: var(--cream);
+                text-decoration: none;
+            }
+
+                .mob-overlay a:hover {
+                    color: var(--gold);
+                }
+
+        .mob-close {
+            position: absolute;
+            top: 2rem;
+            right: clamp(1.5rem,5vw,4rem);
+            font-family: var(--ff-mono);
+            font-size: .6rem;
+            letter-spacing: .2em;
+            color: var(--warm-dim);
+            background: none;
+            border: none;
+            cursor: none;
+            text-transform: uppercase;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding-top: 72px;
+            min-height: 72vh;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .page-hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg,#1c1408 0%,#100a04 60%,#0d0a06 100%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-hero-vignette {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,rgba(10,8,6,.3) 0%,rgba(10,8,6,.85) 100%);
+        }
+
+        .page-hero-label {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-family: var(--ff-big);
+            font-size: clamp(12rem,20vw,22rem);
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(212,175,55,.05);
+            line-height: 1;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            padding: clamp(3rem,5vw,5rem) clamp(1.5rem,5vw,4rem);
+            width: 100%;
+        }
+
+        .sec-label {
+            font-family: var(--ff-mono);
+            font-size: .58rem;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+            .sec-label::before {
+                content: '';
+                width: 36px;
+                height: 1px;
+                background: var(--gold);
+            }
+
+        .page-hero h1 {
+            font-family: var(--ff-big);
+            font-size: clamp(4rem,10vw,11rem);
+            line-height: .88;
+            letter-spacing: .02em;
+        }
+
+            .page-hero h1 em {
+                font-family: var(--ff-display);
+                font-style: italic;
+                font-size: .55em;
+                color: var(--gold);
+                display: block;
+            }
+
+        .page-hero-sub {
+            font-family: var(--ff-display);
+            font-size: clamp(.95rem,1.8vw,1.2rem);
+            font-style: italic;
+            color: var(--warm-dim);
+            margin-top: 1.25rem;
+            max-width: 44ch;
+        }
+
+        /* COURSES GRID */
+        .courses-section {
+            padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .course-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-b);
+            background: var(--ink2);
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            transition: transform .4s,box-shadow .4s;
+            cursor: none;
+        }
+
+            .course-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 24px 48px rgba(0,0,0,.4);
+            }
+
+        .course-img {
+            position: relative;
+            /* REPLACE each with background-image */
+            background: linear-gradient(135deg,#1a2030,#0a0806);
+            background-size: cover;
+            background-position: center;
+            min-height: 220px;
+        }
+
+            .course-img::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(90deg,transparent,rgba(17,14,9,.5));
+            }
+
+        .course-body {
+            padding: 2rem;
+        }
+
+        .course-tag {
+            font-family: var(--ff-mono);
+            font-size: .48rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: .75rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+            .course-tag::before {
+                content: '';
+                width: 16px;
+                height: 1px;
+                background: var(--gold);
+            }
+
+        .course-name {
+            font-family: var(--ff-display);
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: .5rem;
+        }
+
+        .course-desc {
+            font-size: .8rem;
+            color: var(--warm-dim);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .course-meta {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+            margin-bottom: 1.25rem;
+        }
+
+            .course-meta span {
+                font-family: var(--ff-mono);
+                font-size: .52rem;
+                letter-spacing: .15em;
+                color: var(--warm-dim);
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+            }
+
+            .course-meta .m-icon {
+                color: var(--gold);
+            }
+
+        .course-price {
+            font-family: var(--ff-big);
+            font-size: 1.8rem;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+            .course-price sup {
+                font-family: var(--ff-mono);
+                font-size: .7rem;
+                vertical-align: super;
+            }
+
+        .btn-inscribir {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            font-family: var(--ff-mono);
+            font-size: .55rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            background: none;
+            border: 1px solid rgba(212,175,55,.3);
+            color: var(--gold);
+            padding: .6rem 1.2rem;
+            cursor: none;
+            transition: all .3s;
+        }
+
+            .btn-inscribir:hover {
+                background: var(--gold);
+                color: var(--ink);
+            }
+
+        /* FEATURED COURSE — full width */
+        .course-featured {
+            border: 1px solid var(--glass-b);
+            background: var(--ink2);
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform .4s;
+            cursor: none;
+        }
+
+            .course-featured:hover {
+                transform: translateY(-3px);
+            }
+
+        .cf-img {
+            position: relative;
+            background: linear-gradient(135deg,#1c1408,#100a04);
+            background-size: cover;
+            background-position: center;
+            min-height: 340px;
+        }
+
+            .cf-img::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(90deg,transparent,rgba(17,14,9,.6));
+            }
+
+        .cf-badge {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 2;
+            font-family: var(--ff-mono);
+            font-size: .48rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            background: var(--gold);
+            color: var(--ink);
+            padding: .3rem .8rem;
+        }
+
+        .cf-body {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .cf-tag {
+            font-family: var(--ff-mono);
+            font-size: .48rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+            .cf-tag::before {
+                content: '';
+                width: 16px;
+                height: 1px;
+                background: var(--gold);
+            }
+
+        .cf-name {
+            font-family: var(--ff-display);
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--cream);
+            margin-bottom: .75rem;
+            line-height: 1.2;
+        }
+
+        .cf-desc {
+            font-size: .82rem;
+            color: var(--warm-dim);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            background: var(--ink2);
+            border-top: 1px solid var(--glass-b);
+            border-bottom: 1px solid var(--glass-b);
+            padding: 2.5rem clamp(1.5rem,5vw,4rem);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-n {
+            font-family: var(--ff-big);
+            font-size: 3.5rem;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .stat-l {
+            font-family: var(--ff-mono);
+            font-size: .52rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--warm-dim);
+            margin-top: .4rem;
+        }
+
+        /* FORM */
+        .enroll-section {
+            padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
+        }
+
+        .enroll-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .enroll-info h2 {
+            font-family: var(--ff-display);
+            font-size: clamp(2rem,3.5vw,3.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+            .enroll-info h2 em {
+                font-style: italic;
+                color: var(--gold);
+            }
+
+        .enroll-info p {
+            font-family: var(--ff-display);
+            font-style: italic;
+            color: var(--warm-dim);
+            line-height: 1.8;
+            margin-top: 1rem;
+            font-size: 1rem;
+            border-left: 1px solid rgba(212,175,55,.2);
+            padding-left: 1.25rem;
+        }
+
+        .modality-pills {
+            display: flex;
+            gap: .75rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            font-family: var(--ff-mono);
+            font-size: .5rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            border: 1px solid var(--glass-b);
+            padding: .4rem 1rem;
+            color: var(--warm-dim);
+        }
+
+            .pill.active {
+                border-color: var(--gold);
+                color: var(--gold);
+                background: var(--gold-dim);
+            }
+
+        .form-card {
+            background: rgba(212,175,55,.03);
+            border: 1px solid var(--glass-b);
+            padding: 2.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+            .form-card h3 {
+                font-family: var(--ff-display);
+                font-size: 1.5rem;
+                font-weight: 300;
+                margin-bottom: 2rem;
+            }
+
+        .fg {
+            margin-bottom: 1.25rem;
+        }
+
+            .fg label {
+                display: block;
+                font-family: var(--ff-mono);
+                font-size: .52rem;
+                letter-spacing: .18em;
+                text-transform: uppercase;
+                color: var(--warm-dim);
+                margin-bottom: .5rem;
+            }
+
+            .fg input, .fg select, .fg textarea {
+                width: 100%;
+                background: rgba(212,175,55,.04);
+                border: 1px solid rgba(212,175,55,.15);
+                padding: .8rem 1rem;
+                color: var(--cream);
+                font-family: var(--ff-body);
+                font-size: .9rem;
+                outline: none;
+                transition: border-color .3s;
+            }
+
+                .fg input:focus, .fg select:focus, .fg textarea:focus {
+                    border-color: var(--gold);
+                }
+
+                .fg select option {
+                    background: var(--ink2);
+                }
+
+                .fg input::placeholder, .fg textarea::placeholder {
+                    color: var(--warm-dim);
+                }
+
+            .fg textarea {
+                min-height: 80px;
+                resize: vertical;
+            }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .75rem;
+            font-family: var(--ff-mono);
+            font-size: .6rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            background: var(--gold);
+            color: var(--ink);
+            padding: .9rem 2rem;
+            border: none;
+            cursor: none;
+            transition: all .3s;
+        }
+
+            .btn-submit:hover {
+                background: var(--bronze-lt);
+            }
+
+        footer {
+            background: var(--ink2);
+            border-top: 1px solid var(--glass-b);
+            padding: 3rem clamp(1.5rem,5vw,4rem) 2rem;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+            .footer-nav a {
+                font-family: var(--ff-mono);
+                font-size: .55rem;
+                letter-spacing: .18em;
+                text-transform: uppercase;
+                color: var(--warm-dim);
+                text-decoration: none;
+                transition: color .3s;
+            }
+
+                .footer-nav a:hover {
+                    color: var(--gold);
+                }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-top: 1px solid rgba(212,175,55,.07);
+            padding-top: 1.5rem;
+        }
+
+            .footer-bottom p {
+                font-size: .72rem;
+                color: var(--warm-dim);
+            }
+
+            .footer-bottom span {
+                font-family: var(--ff-mono);
+                font-size: .52rem;
+                letter-spacing: .2em;
+                color: var(--warm-dim);
+            }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--ink2);
+            border: 1px solid var(--glass-b);
+            border-left: 3px solid var(--gold);
+            padding: .85rem 2rem;
+            font-family: var(--ff-mono);
+            font-size: .7rem;
+            letter-spacing: .1em;
+            color: var(--cream);
+            z-index: 5000;
+            transition: transform .4s cubic-bezier(.4,0,.2,1);
+            white-space: nowrap;
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .9s ease,transform .9s ease;
+        }
+
+            .reveal.in {
+                opacity: 1;
+                transform: none;
+            }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        @media(max-width:900px) {
+            .nav-links, .btn-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-card {
+                grid-template-columns: 1fr;
+            }
+
+            .course-img {
+                min-height: 200px;
+            }
+
+            .course-featured {
+                grid-template-columns: 1fr;
+            }
+
+            .cf-img {
+                min-height: 250px;
+            }
+
+            .enroll-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor" id="cur"></div>
+    <div class="cursor-ring" id="curRing"></div>
+
+    <div class="mob-overlay" id="mobNav">
+        <button class="mob-close" id="mobClose">✕ Cerrar</button>
+        <a href="../index.html">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="academia.html">Academia</a>
+        <a href="tienda.html">Tienda</a>
+        <a href="../index.html#contacto">Contacto</a>
+    </div>
+
+    <nav>
+        <a href="../index.html" class="nav-logo">ZAH<span>Y</span>O</a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="academia.html" class="active">Academia</a></li>
+            <li><a href="tienda.html">Tienda</a></li>
+            <li><a href="../index.html#contacto">Contacto</a></li>
+        </ul>
+        <a href="#inscribirse" class="btn-nav">Inscribirse</a>
+        <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <div class="photo-ph">
+                <div class="ph-icon">📷</div>
+                <div class="ph-label">img/hero-academia.jpg<br>Taller de arquitectura / estudiantes trabajando / maqueta en proceso<br>1920×1080px</div>
+            </div>
+        </div>
+        <div class="page-hero-vignette"></div>
+        <div class="page-hero-label">ACM</div>
+        <div class="page-hero-content">
+            <div class="sec-label" style="animation:fadeUp .9s .3s ease both;opacity:0">Módulo 02 / Academia</div>
+            <h1 style="animation:fadeUp .9s .4s ease both;opacity:0">
+                Zahyo
+                <em>Academy</em>
+            </h1>
+            <p class="page-hero-sub" style="animation:fadeUp .9s .5s ease both;opacity:0">Aprende arquitectura de quienes la practican. Cursos, talleres y asesoramiento para estudiantes y profesionales.</p>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar reveal">
+        <div class="stat-item"><div class="stat-n">10+</div><div class="stat-l">Cursos<br>disponibles</div></div>
+        <div class="stat-item"><div class="stat-n">200+</div><div class="stat-l">Estudiantes<br>formados</div></div>
+        <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">Modalidades<br>de estudio</div></div>
+        <div class="stat-item"><div class="stat-n">100%</div><div class="stat-l">Respaldo<br>profesional</div></div>
+    </div>
+
+    <!-- COURSES -->
+    <section class="courses-section">
+        <div class="sec-label reveal">Oferta académica</div>
+        <h2 class="reveal" style="font-family:var(--ff-display);font-size:clamp(2rem,3.5vw,3.5rem);font-weight:300;line-height:1.1;margin-top:.5rem;">Nuestros <em style="font-style:italic;color:var(--gold);">cursos</em></h2>
+
+        <!-- Featured -->
+        <div class="course-featured reveal" style="margin-top:3rem;">
+            <div class="cf-img">
+                <div class="cf-badge">⭐ Más popular</div>
+                <!-- REPLACE: background-image: url('../img/curso-revit.jpg') -->
+                <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-revit.jpg<br>Pantalla de Revit / modelado BIM<br>900×600px</div></div>
+            </div>
+            <div class="cf-body">
+                <div class="cf-tag">Curso Completo</div>
+                <h3 class="cf-name">Revit Architecture<br>desde Cero a Profesional</h3>
+                <p class="cf-desc">Domina Revit y el flujo de trabajo BIM: desde la creación de familias hasta la documentación técnica completa. Incluye proyecto real de práctica.</p>
+                <div class="course-meta">
+                    <span><span class="m-icon">📅</span> 8 semanas · 2 sesiones por semana</span>
+                    <span><span class="m-icon">🕐</span> 2 horas por sesión</span>
+                    <span><span class="m-icon">📍</span> Presencial + Virtual</span>
+                    <span><span class="m-icon">📜</span> Certificado de finalización</span>
+                </div>
+                <div class="course-price"><sup>Bs. </sup>350</div>
+                <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='Revit Architecture desde Cero a Profesional'">Inscribirse →</button>
+            </div>
+        </div>
+
+        <div class="courses-grid reveal">
+            <!-- Course 1 -->
+            <div class="course-card">
+                <div class="course-img">
+                    <!-- REPLACE: background-image: url('../img/curso-sketchup.jpg') -->
+                    <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-sketchup.jpg<br>Modelo SketchUp<br>600×400px</div></div>
+                </div>
+                <div class="course-body">
+                    <div class="course-tag">Modelado 3D</div>
+                    <div class="course-name">SketchUp Pro + V-Ray</div>
+                    <div class="course-desc">Crea modelos 3D profesionales y renders fotorrealistas con SketchUp y el motor de renderizado V-Ray.</div>
+                    <div class="course-meta">
+                        <span><span class="m-icon">📅</span> 4 semanas</span>
+                        <span><span class="m-icon">📍</span> Presencial / Virtual</span>
+                    </div>
+                    <div class="course-price"><sup>Bs. </sup>200</div>
+                    <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='SketchUp Pro + V-Ray'">Inscribirse →</button>
+                </div>
+            </div>
+            <!-- Course 2 -->
+            <div class="course-card">
+                <div class="course-img">
+                    <!-- REPLACE: background-image: url('../img/curso-renders.jpg') -->
+                    <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-renders.jpg<br>Renders arquitectónicos<br>600×400px</div></div>
+                </div>
+                <div class="course-body">
+                    <div class="course-tag">Visualización</div>
+                    <div class="course-name">Renders Fotorrealistas</div>
+                    <div class="course-desc">Postproducción en Photoshop, composición de escenas, iluminación artificial y natural para renders de impacto.</div>
+                    <div class="course-meta">
+                        <span><span class="m-icon">📅</span> 3 semanas</span>
+                        <span><span class="m-icon">📍</span> Virtual (Zoom)</span>
+                    </div>
+                    <div class="course-price"><sup>Bs. </sup>180</div>
+                    <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='Renders Fotorrealistas'">Inscribirse →</button>
+                </div>
+            </div>
+            <!-- Course 3 -->
+            <div class="course-card">
+                <div class="course-img">
+                    <!-- REPLACE: background-image: url('../img/curso-maqueteria.jpg') -->
+                    <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-maqueteria.jpg<br>Construcción de maqueta<br>600×400px</div></div>
+                </div>
+                <div class="course-body">
+                    <div class="course-tag">Taller Presencial</div>
+                    <div class="course-name">Maquetería Arquitectónica</div>
+                    <div class="course-desc">Técnicas y materiales para construir maquetas profesionales a escala. Desde maquetas de estudio hasta presentación.</div>
+                    <div class="course-meta">
+                        <span><span class="m-icon">📅</span> 5 sesiones</span>
+                        <span><span class="m-icon">📍</span> Solo Presencial · Sucre</span>
+                    </div>
+                    <div class="course-price"><sup>Bs. </sup>150</div>
+                    <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='Maquetería Arquitectónica'">Inscribirse →</button>
+                </div>
+            </div>
+            <!-- Course 4 -->
+            <div class="course-card">
+                <div class="course-img">
+                    <!-- REPLACE: background-image: url('../img/curso-laminas.jpg') -->
+                    <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-laminas.jpg<br>Láminas de presentación<br>600×400px</div></div>
+                </div>
+                <div class="course-body">
+                    <div class="course-tag">Diseño</div>
+                    <div class="course-name">Láminas de Presentación</div>
+                    <div class="course-desc">Diseño editorial para arquitectura: composición, tipografía, diagramas y presentaciones que enamoran al jurado.</div>
+                    <div class="course-meta">
+                        <span><span class="m-icon">📅</span> 3 semanas</span>
+                        <span><span class="m-icon">📍</span> Virtual / Presencial</span>
+                    </div>
+                    <div class="course-price"><sup>Bs. </sup>160</div>
+                    <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='Láminas de Presentación'">Inscribirse →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENROLLMENT FORM -->
+    <section class="enroll-section" id="inscribirse">
+        <div class="enroll-wrap reveal">
+            <div class="enroll-info">
+                <div class="sec-label">Inscripción</div>
+                <h2>Únete a<br><em>Zahyo Academy</em></h2>
+                <p>Completa el formulario y te contactaremos para confirmar tu inscripción, método de pago y horario disponible.</p>
+                <div class="modality-pills" style="margin-top:1.5rem;">
+                    <div class="pill active">Presencial</div>
+                    <div class="pill">Virtual (Zoom)</div>
+                    <div class="pill">Híbrido</div>
+                </div>
+                <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--glass-b);background:var(--glass);">
+                    <div style="font-family:var(--ff-mono);font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Consultas directas</div>
+                    <div style="display:flex;flex-direction:column;gap:.75rem;">
+                        <a href="https://wa.me/59173443086" target="_blank" style="font-size:.85rem;color:var(--warm-dim);text-decoration:none;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">📱 WhatsApp: +591 73443086</a>
+                        <a href="mailto:axis.estudiodesign@gmail.com" style="font-size:.85rem;color:var(--warm-dim);text-decoration:none;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">✉️ axis.estudiodesign@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-card">
+                <h3>Formulario de Inscripción</h3>
+                <form id="enrollForm">
+                    <div class="form-row">
+                        <div class="fg"><label>Nombre completo *</label><input type="text" id="i-nombre" placeholder="Tu nombre" required></div>
+                        <div class="fg"><label>CI / Carnet</label><input type="text" id="i-ci" placeholder="Número de CI"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="fg"><label>Teléfono / WhatsApp *</label><input type="tel" id="i-tel" placeholder="+591 7XXXXXXX" required></div>
+                        <div class="fg"><label>Correo electrónico</label><input type="email" id="i-email" placeholder="tu@correo.com"></div>
+                    </div>
+                    <div class="fg">
+                        <label>Curso de interés *</label>
+                        <select id="i-curso" required>
+                            <option value="" disabled selected>Selecciona un curso</option>
+                            <option>Revit Architecture desde Cero a Profesional</option>
+                            <option>SketchUp Pro + V-Ray</option>
+                            <option>Renders Fotorrealistas</option>
+                            <option>Maquetería Arquitectónica</option>
+                            <option>Láminas de Presentación</option>
+                            <option>Asesoramiento personalizado</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Modalidad preferida</label>
+                        <select id="i-modalidad">
+                            <option>Presencial (Sucre)</option>
+                            <option>Virtual (Zoom)</option>
+                            <option>Híbrido</option>
+                        </select>
+                    </div>
+                    <div class="fg"><label>Mensaje / Consulta</label><textarea id="i-mensaje" placeholder="Cuéntanos tu nivel de experiencia, disponibilidad horaria, o cualquier consulta..."></textarea></div>
+                    <button type="submit" class="btn-submit" id="btnEnroll">Enviar inscripción →</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <ul class="footer-nav">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="academia.html">Academia</a></li>
+            <li><a href="tienda.html">Tienda</a></li>
+            <li><a href="../index.html#contacto">Contacto</a></li>
+        </ul>
+        <div class="footer-bottom">
+            <p>© 2025 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
+            <span>SUCRE · BOLIVIA</span>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxg-F4ajYTE5Mb5EvLOp_BpQGw8s2gWCrJpva6nei7goVei7vQsQ0_XKIrXzoKtoHBC/exec';
+        const WA = '59173443086';
+
+        const cur = document.getElementById('cur'), curRing = document.getElementById('curRing');
+        document.addEventListener('mousemove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; setTimeout(() => { curRing.style.left = e.clientX + 'px'; curRing.style.top = e.clientY + 'px'; }, 60); });
+        const ham = document.getElementById('ham'), mob = document.getElementById('mobNav'), mc = document.getElementById('mobClose');
+        ham.addEventListener('click', () => mob.classList.toggle('open'));
+        mc.addEventListener('click', () => mob.classList.remove('open'));
+        const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: .07 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        document.getElementById('enrollForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnEnroll');
+            btn.textContent = 'Enviando...'; btn.disabled = true;
+            const payload = { tipo: 'inscripcion', nombre: document.getElementById('i-nombre').value, ci: document.getElementById('i-ci').value, telefono: document.getElementById('i-tel').value, email: document.getElementById('i-email').value, curso: document.getElementById('i-curso').value, modalidad: document.getElementById('i-modalidad').value, mensaje: document.getElementById('i-mensaje').value };
+            try {
+                await fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+                showToast('✓ Inscripción enviada. ¡Te confirmaremos pronto!'); this.reset();
+            } catch (err) {
+                const msg = encodeURIComponent(`Hola ZAHYO!\nQuiero inscribirme en: ${payload.curso}\nNombre: ${payload.nombre}\nTel: ${payload.telefono}\nModalidad: ${payload.modalidad}`);
+                window.open(`https://wa.me/${WA}?text=${msg}`, '_blank');
+            }
+            btn.textContent = 'Enviar inscripción →'; btn.disabled = false;
+        });
+
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }
+    </script>
+</body>
+</html>

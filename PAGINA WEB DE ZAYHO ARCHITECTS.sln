@@ -5,12 +5,16 @@ VisualStudioVersion = 16.0.37027.11
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1C52E9FC-45DC-44BC-8696-1B21A27E8038}"
 	ProjectSection(SolutionItems) = preProject
+		pages\academia.html = pages\academia.html
+		pages\apoyo-academico.html = pages\apoyo-academico.html
 		index.html = index.html
+		pages\servicios.html = pages\servicios.html
+		pages\tienda.html = pages\tienda.html
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cursos", "cursos", "{BF00C01E-34A9-432A-8CAF-D02FDC2CC739}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cursos", "cursos", "{233E34D5-9732-4380-80C8-68840394A7CC}"
 	ProjectSection(SolutionItems) = preProject
-		autocad.html = autocad.html
+		cursos\autocad.html = cursos\autocad.html
 	EndProjectSection
 EndProject
 Global
@@ -18,7 +22,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{BF00C01E-34A9-432A-8CAF-D02FDC2CC739} = {1C52E9FC-45DC-44BC-8696-1B21A27E8038}
+		{233E34D5-9732-4380-80C8-68840394A7CC} = {1C52E9FC-45DC-44BC-8696-1B21A27E8038}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97F73137-6079-4796-B04F-615C37BA5BB2}
