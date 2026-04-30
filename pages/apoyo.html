@@ -1,0 +1,1969 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apoyo Académico — ZAHYO Estudio de Arquitectura</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@200;300;400;500&family=Bebas+Neue&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0A0806;
+            --ink2: #110E09;
+            --ink3: #1A1510;
+            --copper: #7A3A15;
+            --copper-lt: #D4895A;
+            --accent: #C4713A;
+            --accent-dim: rgba(196,113,58,0.12);
+            --accent-glow: rgba(196,113,58,0.06);
+            --warm: #C8A882;
+            --warm-dim: #7A6248;
+            --cream: #F0E8D8;
+            --cream-dim: rgba(240,232,216,0.55);
+            --glass: rgba(255,255,255,0.03);
+            --glass-b: rgba(196,113,58,0.18);
+            --frosted: rgba(10,8,6,0.55);
+            --ff-display: 'Cormorant Garamond', serif;
+            --ff-big: 'Bebas Neue', sans-serif;
+            --ff-body: 'DM Sans', sans-serif;
+            --ff-mono: 'Inconsolata', monospace;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--ink);
+            color: var(--cream);
+            font-family: var(--ff-body);
+            font-weight: 300;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--ink);
+        }
+
+        /* CURSOR */
+        .cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%,-50%);
+            transition: width .2s, height .2s;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(196,113,58,.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%,-50%);
+            transition: all .12s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 2px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--ink2)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--copper)
+        }
+
+        /* PHOTO PLACEHOLDER */
+        .photo-ph {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+            .photo-ph .ph-icon {
+                font-size: 1.8rem;
+                opacity: .2;
+            }
+
+            .photo-ph .ph-label {
+                font-family: var(--ff-mono);
+                font-size: .44rem;
+                letter-spacing: .18em;
+                color: rgba(196,113,58,.35);
+                text-align: center;
+                line-height: 1.7;
+            }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(1.5rem,5vw,4rem);
+            height: 72px;
+            background: var(--frosted);
+            backdrop-filter: blur(32px);
+            border-bottom: 1px solid var(--glass-b);
+        }
+
+        .nav-logo {
+            font-family: var(--ff-big);
+            font-size: 1.9rem;
+            letter-spacing: .18em;
+            color: var(--cream);
+            text-decoration: none;
+        }
+
+            .nav-logo span {
+                color: var(--accent);
+            }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+            .nav-links a {
+                font-family: var(--ff-mono);
+                font-size: .6rem;
+                letter-spacing: .2em;
+                text-transform: uppercase;
+                color: var(--warm-dim);
+                text-decoration: none;
+                transition: color .3s;
+                position: relative;
+            }
+
+                .nav-links a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -3px;
+                    left: 0;
+                    width: 0;
+                    height: 1px;
+                    background: var(--accent);
+                    transition: width .35s;
+                }
+
+                .nav-links a:hover, .nav-links a.active {
+                    color: var(--cream);
+                }
+
+                    .nav-links a:hover::after, .nav-links a.active::after {
+                        width: 100%;
+                    }
+
+        .btn-nav {
+            font-family: var(--ff-mono);
+            font-size: .6rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(196,113,58,.4);
+            padding: .5rem 1.4rem;
+            text-decoration: none;
+            transition: all .3s;
+            cursor: none;
+        }
+
+            .btn-nav:hover {
+                background: var(--accent);
+                color: var(--ink);
+            }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: none;
+            padding: 4px;
+        }
+
+            .hamburger span {
+                display: block;
+                width: 26px;
+                height: 1px;
+                background: var(--cream);
+            }
+
+        .mob-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10,8,6,.97);
+            backdrop-filter: blur(32px);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .4s;
+        }
+
+            .mob-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .mob-overlay a {
+                font-family: var(--ff-big);
+                font-size: 3rem;
+                letter-spacing: .1em;
+                color: var(--cream);
+                text-decoration: none;
+                transition: color .3s;
+            }
+
+                .mob-overlay a:hover {
+                    color: var(--accent);
+                }
+
+        .mob-close {
+            position: absolute;
+            top: 2rem;
+            right: clamp(1.5rem,5vw,4rem);
+            font-family: var(--ff-mono);
+            font-size: .6rem;
+            letter-spacing: .2em;
+            color: var(--warm-dim);
+            background: none;
+            border: none;
+            cursor: none;
+            text-transform: uppercase;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding-top: 72px;
+            min-height: 70vh;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .page-hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg,#1a1208 0%,#0d0a06 60%,#0a0806 100%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-hero-vignette {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,rgba(10,8,6,.25) 0%,rgba(10,8,6,.88) 100%);
+            z-index: 1;
+        }
+
+        .page-hero-label {
+            position: absolute;
+            top: 0;
+            right: -2rem;
+            font-family: var(--ff-big);
+            font-size: clamp(10rem,18vw,20rem);
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(196,113,58,.06);
+            line-height: 1;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .page-hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(90deg,transparent 0,transparent 79px,rgba(196,113,58,.02) 79px,rgba(196,113,58,.02) 80px),repeating-linear-gradient(0deg,transparent 0,transparent 119px,rgba(196,113,58,.015) 119px,rgba(196,113,58,.015) 120px);
+            z-index: 1;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            padding: clamp(3rem,5vw,5rem) clamp(1.5rem,5vw,4rem);
+            width: 100%;
+        }
+
+        /* SEC LABEL */
+        .sec-label {
+            font-family: var(--ff-mono);
+            font-size: .58rem;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+            .sec-label::before {
+                content: '';
+                width: 36px;
+                height: 1px;
+                background: var(--accent);
+            }
+
+        .page-hero h1 {
+            font-family: var(--ff-big);
+            font-size: clamp(4rem,10vw,11rem);
+            line-height: .88;
+            letter-spacing: .02em;
+            animation: fadeUp .9s .4s ease both;
+            opacity: 0;
+        }
+
+            .page-hero h1 em {
+                font-family: var(--ff-display);
+                font-style: italic;
+                font-size: .55em;
+                color: var(--accent);
+                display: block;
+            }
+
+        .page-hero-sub {
+            font-family: var(--ff-display);
+            font-size: clamp(.95rem,1.8vw,1.2rem);
+            font-style: italic;
+            color: var(--warm-dim);
+            margin-top: 1.25rem;
+            max-width: 50ch;
+            animation: fadeUp .9s .55s ease both;
+            opacity: 0;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            background: var(--ink2);
+            border-top: 1px solid var(--glass-b);
+            border-bottom: 1px solid var(--glass-b);
+            padding: 2rem clamp(1.5rem,5vw,4rem);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-n {
+            font-family: var(--ff-big);
+            font-size: 3rem;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-l {
+            font-family: var(--ff-mono);
+            font-size: .5rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--warm-dim);
+            margin-top: .4rem;
+        }
+
+        /* SERVICES SECTION */
+        .services-section {
+            padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
+        }
+
+        .services-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .services-intro-text h2 {
+            font-family: var(--ff-display);
+            font-size: clamp(2rem,3.5vw,3.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+
+            .services-intro-text h2 em {
+                font-style: italic;
+                color: var(--accent);
+            }
+
+        .services-intro-text p {
+            font-family: var(--ff-display);
+            font-style: italic;
+            color: var(--warm-dim);
+            line-height: 1.9;
+            font-size: 1rem;
+            border-left: 1px solid rgba(196,113,58,.2);
+            padding-left: 1.5rem;
+        }
+
+        .services-intro-img {
+            position: relative;
+            aspect-ratio: 4/3;
+            background: linear-gradient(160deg,#1a1510,#0d0a06);
+            border: 1px solid var(--glass-b);
+            overflow: hidden;
+        }
+
+            .services-intro-img::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(ellipse at 40% 60%,rgba(196,113,58,.08),transparent 60%);
+            }
+
+        /* SERVICE ACCORDION */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 1.5rem;
+        }
+
+        .service-cat {
+            border: 1px solid var(--glass-b);
+            background: var(--ink2);
+            overflow: hidden;
+            transition: box-shadow .4s;
+        }
+
+            .service-cat:hover {
+                box-shadow: 0 16px 40px rgba(0,0,0,.4);
+            }
+
+        .service-cat-header {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: none;
+            border-bottom: 1px solid rgba(196,113,58,.08);
+        }
+
+        .service-cat-num {
+            font-family: var(--ff-mono);
+            font-size: .5rem;
+            letter-spacing: .25em;
+            color: var(--accent);
+        }
+
+        .service-cat-name {
+            font-family: var(--ff-big);
+            font-size: 1.4rem;
+            letter-spacing: .05em;
+            color: var(--cream);
+            margin-top: .25rem;
+        }
+
+        .service-cat-count {
+            font-family: var(--ff-mono);
+            font-size: .5rem;
+            letter-spacing: .18em;
+            color: var(--warm-dim);
+            border: 1px solid rgba(196,113,58,.2);
+            padding: .2rem .6rem;
+        }
+
+        .service-cat-body {
+            padding: 1.5rem;
+        }
+
+        .service-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+        }
+
+            .service-list li {
+                font-size: .82rem;
+                color: var(--warm-dim);
+                display: flex;
+                align-items: flex-start;
+                gap: .6rem;
+                line-height: 1.4;
+            }
+
+                .service-list li::before {
+                    content: '·';
+                    color: var(--accent);
+                    margin-top: .05em;
+                    flex-shrink: 0;
+                }
+
+        /* FORM SECTION */
+        .form-section {
+            padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
+            background: var(--ink2);
+            border-top: 1px solid var(--glass-b);
+        }
+
+        .form-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .form-info h2 {
+            font-family: var(--ff-display);
+            font-size: clamp(2rem,3.5vw,3.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+            .form-info h2 em {
+                font-style: italic;
+                color: var(--accent);
+            }
+
+        .form-info p {
+            font-family: var(--ff-display);
+            font-style: italic;
+            color: var(--warm-dim);
+            line-height: 1.8;
+            font-size: 1rem;
+            border-left: 1px solid rgba(196,113,58,.2);
+            padding-left: 1.25rem;
+        }
+
+        .form-info-contact {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--glass-b);
+            background: var(--accent-dim);
+        }
+
+            .form-info-contact h6 {
+                font-family: var(--ff-mono);
+                font-size: .5rem;
+                letter-spacing: .22em;
+                text-transform: uppercase;
+                color: var(--accent);
+                margin-bottom: 1rem;
+            }
+
+            .form-info-contact a, .form-info-contact p {
+                font-size: .85rem;
+                color: var(--warm-dim);
+                text-decoration: none;
+                display: block;
+                margin-bottom: .5rem;
+                transition: color .3s;
+            }
+
+                .form-info-contact a:hover {
+                    color: var(--cream);
+                }
+
+        .form-card {
+            background: var(--accent-glow);
+            border: 1px solid var(--glass-b);
+            padding: 2.5rem;
+        }
+
+            .form-card h3 {
+                font-family: var(--ff-display);
+                font-size: 1.5rem;
+                font-weight: 300;
+                margin-bottom: .5rem;
+            }
+
+            .form-card > p {
+                font-size: .82rem;
+                color: var(--warm-dim);
+                margin-bottom: 2rem;
+            }
+
+        .form-step-title {
+            font-family: var(--ff-mono);
+            font-size: .55rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+        }
+
+            .form-step-title::before {
+                content: '';
+                flex: 1;
+                height: 1px;
+                background: rgba(196,113,58,.2);
+            }
+
+        /* CHECKBOXES */
+        .check-cat {
+            margin-bottom: 1.5rem;
+        }
+
+        .check-cat-label {
+            font-family: var(--ff-mono);
+            font-size: .52rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: none;
+            padding: .6rem .75rem;
+            border: 1px solid rgba(196,113,58,.15);
+            background: rgba(196,113,58,.04);
+            margin-bottom: .5rem;
+            user-select: none;
+        }
+
+            .check-cat-label span {
+                font-size: .7rem;
+                transition: transform .3s;
+            }
+
+            .check-cat-label.open span {
+                transform: rotate(45deg);
+            }
+
+        .check-cat-items {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .35rem;
+            display: none;
+            padding: .5rem 0;
+        }
+
+            .check-cat-items.open {
+                display: grid;
+            }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: .5rem;
+            cursor: none;
+        }
+
+            .check-item input[type="checkbox"] {
+                accent-color: var(--accent);
+                margin-top: 2px;
+                flex-shrink: 0;
+                cursor: none;
+            }
+
+            .check-item label {
+                font-size: .75rem;
+                color: var(--warm-dim);
+                line-height: 1.4;
+                cursor: none;
+            }
+
+        /* FORM FIELDS */
+        .fg {
+            margin-bottom: 1.1rem;
+        }
+
+            .fg label {
+                display: block;
+                font-family: var(--ff-mono);
+                font-size: .5rem;
+                letter-spacing: .18em;
+                text-transform: uppercase;
+                color: var(--warm-dim);
+                margin-bottom: .45rem;
+            }
+
+            .fg input, .fg textarea, .fg select {
+                width: 100%;
+                background: rgba(196,113,58,.04);
+                border: 1px solid rgba(196,113,58,.15);
+                padding: .75rem 1rem;
+                color: var(--cream);
+                font-family: var(--ff-body);
+                font-size: .88rem;
+                outline: none;
+                transition: border-color .3s;
+            }
+
+                .fg input:focus, .fg textarea:focus, .fg select:focus {
+                    border-color: var(--accent);
+                }
+
+                .fg input::placeholder, .fg textarea::placeholder {
+                    color: var(--warm-dim);
+                }
+
+                .fg select option {
+                    background: var(--ink2);
+                }
+
+            .fg textarea {
+                min-height: 90px;
+                resize: vertical;
+            }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* FILE UPLOAD */
+        .file-drop {
+            border: 1px dashed rgba(196,113,58,.3);
+            padding: 2rem;
+            text-align: center;
+            transition: border-color .3s, background .3s;
+            cursor: none;
+            position: relative;
+        }
+
+            .file-drop:hover, .file-drop.drag-over {
+                border-color: var(--accent);
+                background: var(--accent-dim);
+            }
+
+            .file-drop input[type="file"] {
+                position: absolute;
+                inset: 0;
+                opacity: 0;
+                cursor: none;
+                width: 100%;
+                height: 100%;
+            }
+
+        .file-drop-icon {
+            font-size: 2rem;
+            opacity: .3;
+            margin-bottom: .5rem;
+        }
+
+        .file-drop-text {
+            font-family: var(--ff-mono);
+            font-size: .52rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--warm-dim);
+            margin-bottom: .3rem;
+        }
+
+        .file-drop-hint {
+            font-size: .72rem;
+            color: rgba(120,98,72,.7);
+        }
+
+        .file-selected {
+            margin-top: .75rem;
+            font-family: var(--ff-mono);
+            font-size: .55rem;
+            letter-spacing: .1em;
+            color: var(--accent);
+            display: none;
+            align-items: center;
+            gap: .5rem;
+        }
+
+            .file-selected.visible {
+                display: flex;
+                justify-content: center;
+            }
+
+        .file-error {
+            margin-top: .5rem;
+            font-size: .75rem;
+            color: #e57373;
+            display: none;
+        }
+
+            .file-error.visible {
+                display: block;
+            }
+
+        /* BUTTONS */
+        .btn-submit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .75rem;
+            font-family: var(--ff-mono);
+            font-size: .6rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            background: var(--accent);
+            color: var(--ink);
+            padding: .95rem 2rem;
+            border: none;
+            cursor: none;
+            transition: all .3s;
+            margin-top: 1.5rem;
+        }
+
+            .btn-submit:hover {
+                background: var(--copper-lt);
+                transform: translateY(-2px);
+            }
+
+            .btn-submit:disabled {
+                opacity: .6;
+                transform: none;
+            }
+
+        .btn-wa-submit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .75rem;
+            font-family: var(--ff-mono);
+            font-size: .6rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            background: #25D366;
+            color: #fff;
+            padding: .9rem;
+            border: none;
+            cursor: none;
+            transition: all .3s;
+            margin-top: .75rem;
+        }
+
+            .btn-wa-submit:hover {
+                background: #1db954;
+            }
+
+        /* SUCCESS BOX */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+            .form-success.visible {
+                display: block;
+            }
+
+            .form-success .check {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+
+            .form-success h3 {
+                font-family: var(--ff-display);
+                font-size: 1.8rem;
+                font-weight: 300;
+                margin-bottom: .75rem;
+            }
+
+        .tracking-code-box {
+            display: inline-block;
+            font-family: var(--ff-mono);
+            font-size: 1.2rem;
+            letter-spacing: .15em;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: .6rem 2rem;
+            margin: 1rem 0;
+            background: var(--accent-dim);
+        }
+
+        .form-success p {
+            font-size: .85rem;
+            color: var(--warm-dim);
+            line-height: 1.8;
+        }
+
+        /* TRACKING SECTION */
+        .tracking-section {
+            padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
+            border-top: 1px solid var(--glass-b);
+        }
+
+        .tracking-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+            .tracking-inner h2 {
+                font-family: var(--ff-display);
+                font-size: clamp(2rem,3.5vw,3rem);
+                font-weight: 300;
+                margin-bottom: .75rem;
+            }
+
+                .tracking-inner h2 em {
+                    font-style: italic;
+                    color: var(--accent);
+                }
+
+            .tracking-inner > p {
+                font-family: var(--ff-display);
+                font-style: italic;
+                color: var(--warm-dim);
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+        .tracking-form {
+            display: flex;
+            gap: .75rem;
+        }
+
+            .tracking-form input {
+                flex: 1;
+                background: rgba(196,113,58,.04);
+                border: 1px solid rgba(196,113,58,.2);
+                padding: .85rem 1.25rem;
+                color: var(--cream);
+                font-family: var(--ff-mono);
+                font-size: .85rem;
+                letter-spacing: .08em;
+                outline: none;
+                transition: border-color .3s;
+            }
+
+                .tracking-form input:focus {
+                    border-color: var(--accent);
+                }
+
+                .tracking-form input::placeholder {
+                    color: var(--warm-dim);
+                }
+
+        .btn-track {
+            font-family: var(--ff-mono);
+            font-size: .58rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            background: var(--accent);
+            color: var(--ink);
+            padding: .85rem 1.75rem;
+            border: none;
+            cursor: none;
+            white-space: nowrap;
+            transition: all .3s;
+        }
+
+            .btn-track:hover {
+                background: var(--copper-lt);
+            }
+
+        .tracking-result {
+            margin-top: 2rem;
+            text-align: left;
+            display: none;
+        }
+
+            .tracking-result.visible {
+                display: block;
+            }
+
+        .track-card {
+            border: 1px solid var(--glass-b);
+            background: var(--glass);
+            padding: 1.75rem;
+        }
+
+        .track-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(196,113,58,.08);
+        }
+
+        .track-code {
+            font-family: var(--ff-mono);
+            font-size: .58rem;
+            letter-spacing: .2em;
+            color: var(--warm-dim);
+        }
+
+            .track-code span {
+                color: var(--accent);
+                font-size: .85rem;
+            }
+
+        .track-status {
+            font-family: var(--ff-mono);
+            font-size: .52rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            padding: .35rem .9rem;
+            border: 1px solid;
+        }
+
+        .status-recibido {
+            color: #F59E0B;
+            border-color: #F59E0B;
+            background: rgba(245,158,11,.08);
+        }
+
+        .status-en-proceso {
+            color: #3B82F6;
+            border-color: #3B82F6;
+            background: rgba(59,130,246,.08);
+        }
+
+        .status-listo {
+            color: #10B981;
+            border-color: #10B981;
+            background: rgba(16,185,129,.08);
+        }
+
+        .status-entregado {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        .track-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .track-field label {
+            font-family: var(--ff-mono);
+            font-size: .46rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--warm-dim);
+            margin-bottom: .3rem;
+            display: block;
+        }
+
+        .track-field p {
+            font-size: .85rem;
+            color: var(--cream);
+        }
+
+        .track-notes {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--accent-dim);
+            border-left: 2px solid var(--accent);
+        }
+
+            .track-notes label {
+                font-family: var(--ff-mono);
+                font-size: .46rem;
+                letter-spacing: .18em;
+                text-transform: uppercase;
+                color: var(--accent);
+                display: block;
+                margin-bottom: .3rem;
+            }
+
+            .track-notes p {
+                font-size: .82rem;
+                color: var(--warm-dim);
+                font-family: var(--ff-display);
+                font-style: italic;
+            }
+
+        .track-error {
+            color: var(--warm-dim);
+            font-family: var(--ff-display);
+            font-style: italic;
+            font-size: 1rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--ink2);
+            border-top: 1px solid var(--glass-b);
+            padding: 3rem clamp(1.5rem,5vw,4rem) 2rem;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+            .footer-nav a {
+                font-family: var(--ff-mono);
+                font-size: .55rem;
+                letter-spacing: .18em;
+                text-transform: uppercase;
+                color: var(--warm-dim);
+                text-decoration: none;
+                transition: color .3s;
+            }
+
+                .footer-nav a:hover {
+                    color: var(--accent);
+                }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-top: 1px solid rgba(196,113,58,.07);
+            padding-top: 1.5rem;
+        }
+
+            .footer-bottom p {
+                font-size: .72rem;
+                color: var(--warm-dim);
+            }
+
+            .footer-bottom span {
+                font-family: var(--ff-mono);
+                font-size: .52rem;
+                letter-spacing: .2em;
+                color: var(--warm-dim);
+            }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--ink2);
+            border: 1px solid var(--glass-b);
+            border-left: 3px solid var(--accent);
+            padding: .85rem 2rem;
+            font-family: var(--ff-mono);
+            font-size: .7rem;
+            letter-spacing: .1em;
+            color: var(--cream);
+            z-index: 5000;
+            transition: transform .4s cubic-bezier(.4,0,.2,1);
+            white-space: nowrap;
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+        /* REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .9s ease, transform .9s ease;
+        }
+
+            .reveal.in {
+                opacity: 1;
+                transform: none;
+            }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1100px) {
+            .services-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .services-intro {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media(max-width:900px) {
+            .nav-links, .btn-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .form-wrap {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .check-cat-items {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .tracking-form {
+                flex-direction: column;
+            }
+
+            .track-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor" id="cur"></div>
+    <div class="cursor-ring" id="curRing"></div>
+
+    <!-- MOBILE NAV -->
+    <div class="mob-overlay" id="mobNav">
+        <button class="mob-close" id="mobClose">✕ Cerrar</button>
+        <a href="../index.html">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="academia.html">Academia</a>
+        <a href="apoyo.html">Apoyo</a>
+        <a href="tienda.html">Tienda</a>
+        <a href="../index.html#contacto">Contacto</a>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+        <a href="../index.html" class="nav-logo">ZAH<span>Y</span>O</a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="academia.html">Academia</a></li>
+            <li><a href="apoyo-academico.html" class="active">Apoyo Académico</a></li>
+            <li><a href="tienda.html">Tienda</a></li>
+            <li><a href="../index.html#contacto">Contacto</a></li>
+        </ul>
+        <a href="#cotizar" class="btn-nav">Solicitar cotización</a>
+        <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <div class="page-hero-bg" data-img="../img/hero-apoyo.jpg">
+            <div class="photo-ph">
+                <div class="ph-icon">📷</div>
+                <div class="ph-label">img/hero-apoyo.jpg<br>Estudiante trabajando / planos en taller / maqueta en proceso<br>1920×1080px, oscuro/arquitectónico</div>
+            </div>
+        </div>
+        <div class="page-hero-grid"></div>
+        <div class="page-hero-vignette"></div>
+        <div class="page-hero-label">APOYO</div>
+        <div class="page-hero-content">
+            <div class="sec-label" style="animation:fadeUp .9s .3s ease both;opacity:0;">Módulo 03 / Apoyo Académico</div>
+            <h1>
+                Apoyo<br>
+                <em>Académico</em>
+            </h1>
+            <p class="page-hero-sub">¿Necesitas ayuda con tu proyecto? Te acompañamos desde los planos hasta la presentación final. Cotiza sin compromiso.</p>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar reveal">
+        <div class="stat-item"><div class="stat-n">6</div><div class="stat-l">Áreas de<br>servicio</div></div>
+        <div class="stat-item"><div class="stat-n">50+</div><div class="stat-l">Tipos de<br>trabajo</div></div>
+        <div class="stat-item"><div class="stat-n">24h</div><div class="stat-l">Respuesta<br>de cotización</div></div>
+        <div class="stat-item"><div class="stat-n">100%</div><div class="stat-l">Respaldo<br>profesional</div></div>
+    </div>
+
+    <!-- SERVICES -->
+    <section class="services-section" id="servicios">
+        <div class="services-intro reveal">
+            <div class="services-intro-text">
+                <div class="sec-label">Qué ofrecemos</div>
+                <h2>Todo lo que<br>necesitas para tu <em>proyecto</em></h2>
+                <p>Desde planos técnicos hasta maquetas y asesoramiento directo con arquitectos. Selecciona las áreas que necesitas y te enviamos una cotización personalizada en menos de 24 horas.</p>
+            </div>
+            <div class="services-intro-img" data-img="../img/apoyo-servicios.jpg">
+                <div class="photo-ph">
+                    <div class="ph-icon">📷</div>
+                    <div class="ph-label">img/apoyo-servicios.jpg<br>Planos sobre mesa / trabajo de taller<br>800×600px</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-grid reveal">
+            <!-- 1.1 Planos -->
+            <div class="service-cat">
+                <div class="service-cat-header">
+                    <div>
+                        <div class="service-cat-num">01 · Planos Técnicos</div>
+                        <div class="service-cat-name">Documentación</div>
+                    </div>
+                    <div class="service-cat-count">13 servicios</div>
+                </div>
+                <div class="service-cat-body">
+                    <ul class="service-list">
+                        <li>Plantas arquitectónicas</li>
+                        <li>Elevaciones y fachadas</li>
+                        <li>Secciones / cortes</li>
+                        <li>Planimetría de conjunto</li>
+                        <li>Planos estructurales</li>
+                        <li>Planos urbanos</li>
+                        <li>Detalles constructivos</li>
+                        <li>Instalaciones sanitarias</li>
+                        <li>Instalaciones eléctricas y especiales</li>
+                        <li>Cortes de borde</li>
+                        <li>Cortes fugados</li>
+                        <li>Detalle de plafonería</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 1.2 Visualización -->
+            <div class="service-cat">
+                <div class="service-cat-header">
+                    <div>
+                        <div class="service-cat-num">02 · Visualización</div>
+                        <div class="service-cat-name">Arquitectónica</div>
+                    </div>
+                    <div class="service-cat-count">10 servicios</div>
+                </div>
+                <div class="service-cat-body">
+                    <ul class="service-list">
+                        <li>Perspectivas interiores</li>
+                        <li>Perspectivas exteriores</li>
+                        <li>Axonometrías</li>
+                        <li>Perspectivas 360°</li>
+                        <li>Recorridos virtuales</li>
+                        <li>Postproducción de planos en Photoshop</li>
+                        <li>Láminas descriptivas</li>
+                        <li>Láminas urbanas</li>
+                        <li>Láminas Arquisur</li>
+                        <li>Presentaciones y diapositivas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 1.3 3D -->
+            <div class="service-cat">
+                <div class="service-cat-header">
+                    <div>
+                        <div class="service-cat-num">03 · Modelado 3D</div>
+                        <div class="service-cat-name">Digital</div>
+                    </div>
+                    <div class="service-cat-count">7 servicios</div>
+                </div>
+                <div class="service-cat-body">
+                    <ul class="service-list">
+                        <li>Modelado general (Revit, SketchUp)</li>
+                        <li>Modelado de formas irregulares y orgánicas</li>
+                        <li>Modelado de detalle constructivo</li>
+                        <li>Archivos para impresión 3D</li>
+                        <li>Ambientación / pre-visualización</li>
+                        <li>Diseño y modelado de mobiliario</li>
+                        <li>Familias personalizadas en Revit</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 1.4 Documentación -->
+            <div class="service-cat">
+                <div class="service-cat-header">
+                    <div>
+                        <div class="service-cat-num">04 · Documentación</div>
+                        <div class="service-cat-name">Técnica</div>
+                    </div>
+                    <div class="service-cat-count">6 servicios</div>
+                </div>
+                <div class="service-cat-body">
+                    <ul class="service-list">
+                        <li>Cómputos métricos</li>
+                        <li>Precios unitarios</li>
+                        <li>Presupuesto de obra</li>
+                        <li>Cómputo de materiales</li>
+                        <li>Tabla de tiempos y diagrama de barras</li>
+                        <li>Documentos teóricos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 1.5 Maquetería -->
+            <div class="service-cat">
+                <div class="service-cat-header">
+                    <div>
+                        <div class="service-cat-num">05 · Maquetería</div>
+                        <div class="service-cat-name">Física</div>
+                    </div>
+                    <div class="service-cat-count">5 servicios</div>
+                </div>
+                <div class="service-cat-body">
+                    <ul class="service-list">
+                        <li>Maqueta a detalle (desmontable, corte longitudinal/transversal, con interiores)</li>
+                        <li>Maquetas urbanas</li>
+                        <li>Maquetas estructurales</li>
+                        <li>Maquetas de detalles constructivos</li>
+                        <li>Ambientación (elementos para maquetería)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 1.6 Asesoramiento -->
+            <div class="service-cat">
+                <div class="service-cat-header">
+                    <div>
+                        <div class="service-cat-num">06 · Asesoramiento</div>
+                        <div class="service-cat-name">Personalizado</div>
+                    </div>
+                    <div class="service-cat-count">5 servicios</div>
+                </div>
+                <div class="service-cat-body">
+                    <ul class="service-list">
+                        <li>Asesoramiento en talleres (I, II, IV, V, VI, VII y VIII)</li>
+                        <li>Asesoramiento en construcciones</li>
+                        <li>Asesoramiento en estructuras</li>
+                        <li>Asesoramiento en instalaciones</li>
+                        <li>Asesoramiento en topografía</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE FORM -->
+    <section class="form-section" id="cotizar">
+        <div class="form-wrap reveal">
+            <div class="form-info">
+                <div class="sec-label">Cotización</div>
+                <h2>Cuéntanos tu<br><em>proyecto</em></h2>
+                <p>Selecciona las áreas en las que necesitas apoyo, adjunta tu proyecto si tienes avance, y te responderemos con una cotización en menos de 24 horas.</p>
+                <div class="form-info-contact">
+                    <h6>Consultas directas</h6>
+                    <a href="https://wa.me/59173443086" target="_blank">📱 +591 73443086</a>
+                    <a href="https://wa.me/59175769551" target="_blank">📱 Arq. Laura: +591 75769551</a>
+                    <a href="https://wa.me/59173450072" target="_blank">📱 Arq. Franz: +591 73450072</a>
+                    <a href="mailto:axis.estudiodesign@gmail.com">✉️ axis.estudiodesign@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <h3>Formulario de cotización</h3>
+                <p>Completa todos los campos. Los marcados con * son obligatorios.</p>
+
+                <!-- ── FORM ── -->
+                <form id="apoyoForm" novalidate>
+
+                    <!-- STEP 1: ÁREAS -->
+                    <div class="form-step-title">Áreas de apoyo *</div>
+                    <p style="font-size:.78rem;color:var(--warm-dim);margin-bottom:1rem;">Selecciona todo lo que necesitas (mínimo 1)</p>
+
+                    <!-- 1.1 Planos -->
+                    <div class="check-cat">
+                        <div class="check-cat-label" onclick="toggleCat(this)">
+                            <span style="color:var(--accent);font-size:.85rem;">01</span>&nbsp; Planos Técnicos
+                            <span>+</span>
+                        </div>
+                        <div class="check-cat-items">
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Plantas"> <span>Plantas</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Elevaciones"> <span>Elevaciones</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Secciones/Cortes"> <span>Secciones / Cortes</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Planimetría"> <span>Planimetría</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Estructurales"> <span>Estructurales</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Urbanos"> <span>Urbanos</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Detalles constructivos"> <span>Detalles constructivos</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Instalaciones sanitarias"> <span>Inst. sanitarias</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Instalaciones eléctricas"> <span>Inst. eléctricas/especiales</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Cortes de borde"> <span>Cortes de borde</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Cortes fugados"> <span>Cortes fugados</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Planos · Detalle plafonería"> <span>Detalle plafonería</span></label>
+                        </div>
+                    </div>
+
+                    <!-- 1.2 Visualización -->
+                    <div class="check-cat">
+                        <div class="check-cat-label" onclick="toggleCat(this)">
+                            <span style="color:var(--accent);font-size:.85rem;">02</span>&nbsp; Visualización Arquitectónica
+                            <span>+</span>
+                        </div>
+                        <div class="check-cat-items">
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Perspectivas interiores"> <span>Perspectivas interiores</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Perspectivas exteriores"> <span>Perspectivas exteriores</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Axonometrías"> <span>Axonometrías</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Perspectivas 360°"> <span>Perspectivas 360°</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Recorridos virtuales"> <span>Recorridos virtuales</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Postproducción Photoshop"> <span>Postproducción Photoshop</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Láminas descriptivas"> <span>Láminas descriptivas</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Láminas urbanas"> <span>Láminas urbanas</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Láminas Arquisur"> <span>Láminas Arquisur</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Viz · Presentaciones"> <span>Presentaciones</span></label>
+                        </div>
+                    </div>
+
+                    <!-- 1.3 3D -->
+                    <div class="check-cat">
+                        <div class="check-cat-label" onclick="toggleCat(this)">
+                            <span style="color:var(--accent);font-size:.85rem;">03</span>&nbsp; Modelado 3D
+                            <span>+</span>
+                        </div>
+                        <div class="check-cat-items">
+                            <label class="check-item"><input type="checkbox" name="area" value="3D · Modelado general"> <span>Modelado general</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="3D · Formas irregulares"> <span>Formas irregulares/orgánicas</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="3D · Detalle constructivo"> <span>Detalle constructivo</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="3D · Impresión 3D"> <span>Archivos impresión 3D</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="3D · Ambientación"> <span>Ambientación</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="3D · Mobiliario personalizado"> <span>Mobiliario personalizado</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="3D · Familias Revit"> <span>Familias Revit</span></label>
+                        </div>
+                    </div>
+
+                    <!-- 1.4 Documentación -->
+                    <div class="check-cat">
+                        <div class="check-cat-label" onclick="toggleCat(this)">
+                            <span style="color:var(--accent);font-size:.85rem;">04</span>&nbsp; Documentación Técnica
+                            <span>+</span>
+                        </div>
+                        <div class="check-cat-items">
+                            <label class="check-item"><input type="checkbox" name="area" value="Doc · Cómputos métricos"> <span>Cómputos métricos</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Doc · Precios unitarios"> <span>Precios unitarios</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Doc · Presupuesto"> <span>Presupuesto de obra</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Doc · Cómputo materiales"> <span>Cómputo de materiales</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Doc · Diagrama de barras"> <span>Tabla de tiempos / barras</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Doc · Documentos teóricos"> <span>Documentos teóricos</span></label>
+                        </div>
+                    </div>
+
+                    <!-- 1.5 Maquetería -->
+                    <div class="check-cat">
+                        <div class="check-cat-label" onclick="toggleCat(this)">
+                            <span style="color:var(--accent);font-size:.85rem;">05</span>&nbsp; Maquetería
+                            <span>+</span>
+                        </div>
+                        <div class="check-cat-items">
+                            <label class="check-item"><input type="checkbox" name="area" value="Maqueta · A detalle"> <span>Maqueta a detalle</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Urbana"> <span>Maqueta urbana</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Estructural"> <span>Maqueta estructural</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Detalles constructivos"> <span>Detalles constructivos</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Maqueta · Ambientación"> <span>Ambientación</span></label>
+                        </div>
+                    </div>
+
+                    <!-- 1.6 Asesoramiento -->
+                    <div class="check-cat">
+                        <div class="check-cat-label" onclick="toggleCat(this)">
+                            <span style="color:var(--accent);font-size:.85rem;">06</span>&nbsp; Asesoramiento
+                            <span>+</span>
+                        </div>
+                        <div class="check-cat-items">
+                            <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Talleres"> <span>Talleres (I, II, IV–VIII)</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Construcciones"> <span>Construcciones</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Estructuras"> <span>Estructuras</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Instalaciones"> <span>Instalaciones</span></label>
+                            <label class="check-item"><input type="checkbox" name="area" value="Asesoría · Topografía"> <span>Topografía</span></label>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: PERSONAL INFO -->
+                    <div class="form-step-title">Tus datos</div>
+                    <div class="form-row">
+                        <div class="fg"><label>Nombre completo *</label><input type="text" id="a-nombre" placeholder="Tu nombre" required></div>
+                        <div class="fg"><label>CI / Carnet *</label><input type="text" id="a-ci" placeholder="Número de CI" required></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="fg"><label>Teléfono / WhatsApp *</label><input type="tel" id="a-tel" placeholder="+591 7XXXXXXX" required></div>
+                        <div class="fg"><label>Correo electrónico</label><input type="email" id="a-email" placeholder="tu@correo.com"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="fg">
+                            <label>Institución</label>
+                            <select id="a-inst">
+                                <option value="" disabled selected>Selecciona</option>
+                                <option>USFX</option>
+                                <option>UCB</option>
+                                <option>NUR</option>
+                                <option>UPSA</option>
+                                <option>UTO</option>
+                                <option>UMSS</option>
+                                <option>UMSA</option>
+                                <option>Otra universidad</option>
+                            </select>
+                        </div>
+                        <div class="fg">
+                            <label>Semestre / Año</label>
+                            <select id="a-semestre">
+                                <option value="" disabled selected>Selecciona</option>
+                                <option>Taller I</option>
+                                <option>Taller II</option>
+                                <option>Taller III</option>
+                                <option>Taller IV</option>
+                                <option>Taller V</option>
+                                <option>Taller VI</option>
+                                <option>Taller VII</option>
+                                <option>Taller VIII</option>
+                                <option>Taller IX</option>
+                                <option>Taller X</option>
+                                <option>Proyecto de grado</option>
+                                <option>Profesional</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: DESCRIPTION + FILE -->
+                    <div class="form-step-title">Descripción del proyecto</div>
+                    <div class="fg"><label>Descripción y requerimientos *</label><textarea id="a-desc" placeholder="Describe tu proyecto: tipo de edificación, escala, materiales, urgencia, observaciones importantes..." style="min-height:120px;" required></textarea></div>
+
+                    <div class="fg">
+                        <label>Archivo adjunto (PDF, imágenes, ZIP — máx. 5MB)</label>
+                        <div class="file-drop" id="fileDrop">
+                            <input type="file" id="a-archivo" accept=".pdf,.jpg,.jpeg,.png,.zip" onchange="handleFile(this)">
+                            <div class="file-drop-icon">📎</div>
+                            <div class="file-drop-text">Arrastra tu archivo aquí o haz clic</div>
+                            <div class="file-drop-hint">PDF, JPG, PNG, ZIP · Máximo 5MB</div>
+                        </div>
+                        <div class="file-selected" id="fileSelected">✓ <span id="fileName"></span></div>
+                        <div class="file-error" id="fileError"></div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btnApoyo">Solicitar cotización →</button>
+                    <button type="button" class="btn-wa-submit" id="btnApoyoWA">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+                        Enviar por WhatsApp
+                    </button>
+                </form>
+
+                <!-- SUCCESS STATE -->
+                <div class="form-success" id="formSuccess">
+                    <div class="check">✅</div>
+                    <h3>¡Solicitud enviada!</h3>
+                    <p>Tu código de seguimiento es:</p>
+                    <div class="tracking-code-box" id="successCode">APY---------</div>
+                    <p>Guarda este código. Te contactaremos en menos de 24h para enviarte la cotización personalizada.</p>
+                    <div style="margin-top:1.5rem;">
+                        <button onclick="resetForm()" class="btn-submit" style="width:auto;padding:.7rem 1.5rem;cursor:none;">Nueva solicitud</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRACKING -->
+    <section class="tracking-section reveal" id="seguimiento">
+        <div class="tracking-inner">
+            <div class="sec-label" style="justify-content:center;">Seguimiento</div>
+            <h2>Seguir mi <em>solicitud</em></h2>
+            <p>Ingresa el código APY que recibiste al enviar tu solicitud de cotización.</p>
+            <div class="tracking-form">
+                <input type="text" id="trackCode" placeholder="APY-20250101-001" maxlength="20">
+                <button class="btn-track" id="btnTrack">Consultar →</button>
+            </div>
+            <div class="tracking-result" id="trackingResult"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <ul class="footer-nav">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="academia.html">Academia</a></li>
+            <li><a href="apoyo-academico.html">Apoyo Académico</a></li>
+            <li><a href="tienda.html">Tienda</a></li>
+            <li><a href="../index.html#contacto">Contacto</a></li>
+        </ul>
+        <div class="footer-bottom">
+            <p>© 2025 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
+            <span>SUCRE · BOLIVIA</span>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ── CONFIG ──────────────────────────────────────────────────────
+        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxg-F4ajYTE5Mb5EvLOp_BpQGw8s2gWCrJpva6nei7goVei7vQsQ0_XKIrXzoKtoHBC/exec';
+        const WA_NUMBER = '59173443086';
+        const MAX_FILE_BYTES = 5 * 1024 * 1024; // 5MB
+
+        // ── CURSOR ──────────────────────────────────────────────────────
+        const cur = document.getElementById('cur'), curRing = document.getElementById('curRing');
+        document.addEventListener('mousemove', e => {
+            cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+            setTimeout(() => { curRing.style.left = e.clientX + 'px'; curRing.style.top = e.clientY + 'px'; }, 60);
+        });
+
+        // ── NAV ──────────────────────────────────────────────────────────
+        const ham = document.getElementById('ham'), mob = document.getElementById('mobNav'), mc = document.getElementById('mobClose');
+        ham.addEventListener('click', () => mob.classList.toggle('open'));
+        mc.addEventListener('click', () => mob.classList.remove('open'));
+
+        // ── REVEAL ───────────────────────────────────────────────────────
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { threshold: .07 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        // ── IMAGE LOADER ─────────────────────────────────────────────────
+        document.querySelectorAll('[data-img]').forEach(el => {
+            const src = el.dataset.img;
+            if (!src) return;
+            const img = new Image();
+            img.onload = () => {
+                el.style.backgroundImage = `url('${src}')`;
+                const ph = el.querySelector('.photo-ph');
+                if (ph) ph.style.display = 'none';
+            };
+            img.src = src;
+        });
+
+        // ── CATEGORY TOGGLE ──────────────────────────────────────────────
+        function toggleCat(header) {
+            const items = header.nextElementSibling;
+            const isOpen = items.classList.contains('open');
+            items.classList.toggle('open');
+            header.classList.toggle('open', !isOpen);
+        }
+
+        // ── FILE HANDLING ────────────────────────────────────────────────
+        let selectedFile = null;
+        let selectedFileData = null; // base64
+
+        function handleFile(input) {
+            const file = input.files[0];
+            const errEl = document.getElementById('fileError');
+            const selEl = document.getElementById('fileSelected');
+            const nameEl = document.getElementById('fileName');
+            errEl.classList.remove('visible');
+            selEl.classList.remove('visible');
+
+            if (!file) { selectedFile = null; selectedFileData = null; return; }
+
+            if (file.size > MAX_FILE_BYTES) {
+                errEl.textContent = `⚠ El archivo es demasiado grande (${(file.size/1024/1024).toFixed(1)}MB). Máximo: 5MB.`;
+                errEl.classList.add('visible');
+                input.value = '';
+                selectedFile = null; selectedFileData = null;
+                return;
+            }
+
+            const allowed = ['application/pdf','image/jpeg','image/png','application/zip','application/x-zip-compressed'];
+            if (!allowed.includes(file.type) && !file.name.match(/\.(pdf|jpg|jpeg|png|zip)$/i)) {
+                errEl.textContent = '⚠ Tipo de archivo no permitido. Usa PDF, JPG, PNG o ZIP.';
+                errEl.classList.add('visible');
+                input.value = '';
+                selectedFile = null; selectedFileData = null;
+                return;
+            }
+
+            // Read as base64
+            const reader = new FileReader();
+            reader.onload = () => {
+                selectedFileData = reader.result.split(',')[1];
+                selectedFile = file;
+                nameEl.textContent = file.name + ' (' + (file.size/1024).toFixed(0) + 'KB)';
+                selEl.classList.add('visible');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Drag & drop
+        const fileDrop = document.getElementById('fileDrop');
+        ['dragenter','dragover'].forEach(e => fileDrop.addEventListener(e, ev => { ev.preventDefault(); fileDrop.classList.add('drag-over'); }));
+        ['dragleave','drop'].forEach(e => fileDrop.addEventListener(e, ev => { ev.preventDefault(); fileDrop.classList.remove('drag-over'); }));
+        fileDrop.addEventListener('drop', ev => {
+            const dt = ev.dataTransfer;
+            if (dt.files.length) {
+                document.getElementById('a-archivo').files = dt.files;
+                handleFile(document.getElementById('a-archivo'));
+            }
+        });
+
+        // ── GENERATE APY CODE ────────────────────────────────────────────
+        function generateApyCode() {
+            const now = new Date();
+            const d = now.toISOString().slice(0,10).replace(/-/g,'');
+            const r = String(Math.floor(Math.random() * 900) + 100);
+            return 'APY-' + d + '-' + r;
+        }
+
+        // ── FORM SUBMIT ──────────────────────────────────────────────────
+        document.getElementById('apoyoForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const areas = [...document.querySelectorAll('input[name="area"]:checked')].map(c => c.value);
+            const nombre   = document.getElementById('a-nombre').value.trim();
+            const ci       = document.getElementById('a-ci').value.trim();
+            const tel      = document.getElementById('a-tel').value.trim();
+            const email    = document.getElementById('a-email').value.trim();
+            const inst     = document.getElementById('a-inst').value || '';
+            const semestre = document.getElementById('a-semestre').value || '';
+            const desc     = document.getElementById('a-desc').value.trim();
+
+            if (!nombre || !ci || !tel || !desc) { showToast('⚠ Completa los campos obligatorios.'); return; }
+            if (areas.length === 0) { showToast('⚠ Selecciona al menos un área de apoyo.'); return; }
+
+            const btn = document.getElementById('btnApoyo');
+            btn.textContent = 'Enviando solicitud...'; btn.disabled = true;
+
+            const codigo = generateApyCode();
+
+            const payload = {
+                tipo: 'apoyo',
+                codigo_frontend: codigo,
+                nombre, ci, telefono: tel, email,
+                institucion: inst, semestre,
+                areas,
+                descripcion: desc,
+            };
+
+            // Add file if selected
+            if (selectedFile && selectedFileData) {
+                payload.archivo_base64 = selectedFileData;
+                payload.archivo_nombre = selectedFile.name;
+                payload.archivo_tipo   = selectedFile.type || 'application/octet-stream';
+            }
+
+            try {
+                await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                showSuccess(codigo);
+            } catch (err) {
+                apoyoViaWhatsApp(nombre, tel, areas, desc, codigo);
+            }
+
+            btn.textContent = 'Solicitar cotización →'; btn.disabled = false;
+        });
+
+        document.getElementById('btnApoyoWA').addEventListener('click', function() {
+            const nombre = document.getElementById('a-nombre').value || 'Estudiante';
+            const tel = document.getElementById('a-tel').value || '';
+            const areas = [...document.querySelectorAll('input[name="area"]:checked')].map(c => c.value);
+            const desc = document.getElementById('a-desc').value || '';
+            const codigo = generateApyCode();
+            apoyoViaWhatsApp(nombre, tel, areas, desc, codigo);
+        });
+
+        function apoyoViaWhatsApp(nombre, tel, areas, desc, codigo) {
+            const lista = areas.length ? areas.join('\n• ') : '(sin especificar)';
+            const msg = encodeURIComponent(
+                `¡Hola ZAHYO! Necesito apoyo académico.\n\nCódigo: ${codigo}\nNombre: ${nombre}\nTel: ${tel}\n\nÁreas:\n• ${lista}\n\nDescripción:\n${desc.substring(0,300)}...`
+            );
+            window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+        }
+
+        function showSuccess(codigo) {
+            document.getElementById('apoyoForm').style.display = 'none';
+            document.getElementById('successCode').textContent = codigo;
+            document.getElementById('formSuccess').classList.add('visible');
+        }
+
+        function resetForm() {
+            document.getElementById('apoyoForm').reset();
+            document.getElementById('apoyoForm').style.display = 'block';
+            document.getElementById('formSuccess').classList.remove('visible');
+            document.getElementById('fileSelected').classList.remove('visible');
+            document.getElementById('fileError').classList.remove('visible');
+            selectedFile = null; selectedFileData = null;
+        }
+
+        // ── TRACKING ─────────────────────────────────────────────────────
+        document.getElementById('btnTrack').addEventListener('click', trackOrder);
+        document.getElementById('trackCode').addEventListener('keydown', e => { if (e.key === 'Enter') trackOrder(); });
+
+        async function trackOrder() {
+            const code = document.getElementById('trackCode').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('trackingResult');
+            if (!code) { showToast('⚠ Ingresa un código de seguimiento.'); return; }
+            resultDiv.innerHTML = '<p style="text-align:center;color:var(--warm-dim);padding:1rem;font-family:var(--ff-display);font-style:italic;">Consultando...</p>';
+            resultDiv.classList.add('visible');
+
+            try {
+                const url = SHEETS_URL + '?tipo=tracking&codigo=' + encodeURIComponent(code);
+                const resp = await fetch(url, { redirect: 'follow' });
+                const data = await resp.json();
+
+                if (data.ok && data.resultado) {
+                    const r = data.resultado;
+                    const statusClass = {
+                        'Recibido': 'status-recibido',
+                        'En proceso': 'status-en-proceso',
+                        'Listo': 'status-listo',
+                        'Entregado': 'status-entregado',
+                    }[r.estado] || 'status-recibido';
+
+                    resultDiv.innerHTML = `
+                        <div class="track-card">
+                            <div class="track-header">
+                                <div class="track-code">Código: <span>${r.codigo}</span></div>
+                                <div class="track-status ${statusClass}">${r.estado}</div>
+                            </div>
+                            <div class="track-grid">
+                                <div class="track-field"><label>Tipo</label><p>${r.tipo || '—'}</p></div>
+                                <div class="track-field"><label>Estudiante</label><p>${r.cliente || '—'}</p></div>
+                                <div class="track-field"><label>Fecha solicitud</label><p>${r.fecha_creacion || '—'}</p></div>
+                                <div class="track-field"><label>Responsable</label><p>${r.responsable || 'Por asignar'}</p></div>
+                            </div>
+                            ${r.notas ? `<div class="track-notes"><label>Notas del equipo</label><p>${r.notas}</p></div>` : ''}
+                        </div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="track-error">No se encontró el código <strong>${code}</strong>. Verifica que esté correcto.<br><br><a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20quiero%20consultar%20mi%20solicitud%20${encodeURIComponent(code)}" target="_blank" style="color:var(--accent);text-decoration:none;">¿Necesitas ayuda? Escríbenos →</a></div>`;
+                }
+            } catch (err) {
+                resultDiv.innerHTML = `<div class="track-error">Error de conexión. <a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20consulto%20mi%20solicitud%3A%20${encodeURIComponent(code)}" target="_blank" style="color:var(--accent);text-decoration:none;">Consulta por WhatsApp →</a></div>`;
+            }
+        }
+
+        // ── TOAST ─────────────────────────────────────────────────────────
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3200);
+        }
+    </script>
+</body>
+</html>
