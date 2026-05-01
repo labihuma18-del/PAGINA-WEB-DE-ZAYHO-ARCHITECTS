@@ -79,15 +79,15 @@
         }
 
         ::-webkit-scrollbar {
-            width: 2px
+            width: 2px;
         }
 
         ::-webkit-scrollbar-track {
-            background: var(--ink2)
+            background: var(--ink2);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--bronze)
+            background: var(--bronze);
         }
 
         .photo-ph {
@@ -362,7 +362,6 @@
 
         .course-img {
             position: relative;
-            /* REPLACE each with background-image */
             background: linear-gradient(135deg,#1a2030,#0a0806);
             background-size: cover;
             background-position: center;
@@ -435,40 +434,19 @@
                 color: var(--gold);
             }
 
-        .course-price {
-            font-family: var(--ff-big);
-            font-size: 1.8rem;
-            color: var(--gold);
-            line-height: 1;
-            margin-bottom: 1rem;
-        }
-
-            .course-price sup {
-                font-family: var(--ff-mono);
-                font-size: .7rem;
-                vertical-align: super;
-            }
-
-        .btn-inscribir {
+        .badge-soon {
             display: inline-flex;
             align-items: center;
-            gap: .6rem;
             font-family: var(--ff-mono);
             font-size: .55rem;
             letter-spacing: .18em;
             text-transform: uppercase;
-            background: none;
+            background: rgba(212,175,55,.1);
             border: 1px solid rgba(212,175,55,.3);
             color: var(--gold);
-            padding: .6rem 1.2rem;
-            cursor: none;
-            transition: all .3s;
+            padding: .5rem 1rem;
+            margin-top: .5rem;
         }
-
-            .btn-inscribir:hover {
-                background: var(--gold);
-                color: var(--ink);
-            }
 
         /* FEATURED COURSE — full width */
         .course-featured {
@@ -521,6 +499,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: flex-start;
         }
 
         .cf-tag {
@@ -590,154 +569,11 @@
             margin-top: .4rem;
         }
 
-        /* FORM */
-        .enroll-section {
-            padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
-        }
-
-        .enroll-wrap {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 5rem;
-            align-items: start;
-        }
-
-        .enroll-info h2 {
-            font-family: var(--ff-display);
-            font-size: clamp(2rem,3.5vw,3.5rem);
-            font-weight: 300;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-        }
-
-            .enroll-info h2 em {
-                font-style: italic;
-                color: var(--gold);
-            }
-
-        .enroll-info p {
-            font-family: var(--ff-display);
-            font-style: italic;
-            color: var(--warm-dim);
-            line-height: 1.8;
-            margin-top: 1rem;
-            font-size: 1rem;
-            border-left: 1px solid rgba(212,175,55,.2);
-            padding-left: 1.25rem;
-        }
-
-        .modality-pills {
-            display: flex;
-            gap: .75rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .pill {
-            font-family: var(--ff-mono);
-            font-size: .5rem;
-            letter-spacing: .18em;
-            text-transform: uppercase;
-            border: 1px solid var(--glass-b);
-            padding: .4rem 1rem;
-            color: var(--warm-dim);
-        }
-
-            .pill.active {
-                border-color: var(--gold);
-                color: var(--gold);
-                background: var(--gold-dim);
-            }
-
-        .form-card {
-            background: rgba(212,175,55,.03);
-            border: 1px solid var(--glass-b);
-            padding: 2.5rem;
-            backdrop-filter: blur(8px);
-        }
-
-            .form-card h3 {
-                font-family: var(--ff-display);
-                font-size: 1.5rem;
-                font-weight: 300;
-                margin-bottom: 2rem;
-            }
-
-        .fg {
-            margin-bottom: 1.25rem;
-        }
-
-            .fg label {
-                display: block;
-                font-family: var(--ff-mono);
-                font-size: .52rem;
-                letter-spacing: .18em;
-                text-transform: uppercase;
-                color: var(--warm-dim);
-                margin-bottom: .5rem;
-            }
-
-            .fg input, .fg select, .fg textarea {
-                width: 100%;
-                background: rgba(212,175,55,.04);
-                border: 1px solid rgba(212,175,55,.15);
-                padding: .8rem 1rem;
-                color: var(--cream);
-                font-family: var(--ff-body);
-                font-size: .9rem;
-                outline: none;
-                transition: border-color .3s;
-            }
-
-                .fg input:focus, .fg select:focus, .fg textarea:focus {
-                    border-color: var(--gold);
-                }
-
-                .fg select option {
-                    background: var(--ink2);
-                }
-
-                .fg input::placeholder, .fg textarea::placeholder {
-                    color: var(--warm-dim);
-                }
-
-            .fg textarea {
-                min-height: 80px;
-                resize: vertical;
-            }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .btn-submit {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: .75rem;
-            font-family: var(--ff-mono);
-            font-size: .6rem;
-            letter-spacing: .2em;
-            text-transform: uppercase;
-            background: var(--gold);
-            color: var(--ink);
-            padding: .9rem 2rem;
-            border: none;
-            cursor: none;
-            transition: all .3s;
-        }
-
-            .btn-submit:hover {
-                background: var(--bronze-lt);
-            }
-
         footer {
             background: var(--ink2);
             border-top: 1px solid var(--glass-b);
             padding: 3rem clamp(1.5rem,5vw,4rem) 2rem;
+            margin-top: 2rem;
         }
 
         .footer-nav {
@@ -784,28 +620,6 @@
                 color: var(--warm-dim);
             }
 
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(80px);
-            background: var(--ink2);
-            border: 1px solid var(--glass-b);
-            border-left: 3px solid var(--gold);
-            padding: .85rem 2rem;
-            font-family: var(--ff-mono);
-            font-size: .7rem;
-            letter-spacing: .1em;
-            color: var(--cream);
-            z-index: 5000;
-            transition: transform .4s cubic-bezier(.4,0,.2,1);
-            white-space: nowrap;
-        }
-
-            .toast.show {
-                transform: translateX(-50%) translateY(0);
-            }
-
         .reveal {
             opacity: 0;
             transform: translateY(28px);
@@ -820,12 +634,12 @@
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(28px)
+                transform: translateY(28px);
             }
 
             to {
                 opacity: 1;
-                transform: none
+                transform: none;
             }
         }
 
@@ -857,16 +671,6 @@
             .cf-img {
                 min-height: 250px;
             }
-
-            .enroll-wrap {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media(max-width:600px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -892,7 +696,6 @@
             <li><a href="tienda.html">Tienda</a></li>
             <li><a href="../index.html#contacto">Contacto</a></li>
         </ul>
-        <a href="#inscribirse" class="btn-nav">Inscribirse</a>
         <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
     </nav>
 
@@ -912,13 +715,13 @@
                 Zahyo
                 <em>Academy</em>
             </h1>
-            <p class="page-hero-sub" style="animation:fadeUp .9s .5s ease both;opacity:0">Aprende arquitectura de quienes la practican. Cursos, talleres y asesoramiento para estudiantes y profesionales.</p>
+            <p class="page-hero-sub" style="animation:fadeUp .9s .5s ease both;opacity:0">Próximamente. Estamos preparando una nueva experiencia de aprendizaje. Cursos, talleres y asesoramiento para estudiantes y profesionales.</p>
         </div>
     </section>
 
     <!-- STATS -->
     <div class="stats-bar reveal">
-        <div class="stat-item"><div class="stat-n">10+</div><div class="stat-l">Cursos<br>disponibles</div></div>
+        <div class="stat-item"><div class="stat-n">10+</div><div class="stat-l">Cursos<br>en desarrollo</div></div>
         <div class="stat-item"><div class="stat-n">200+</div><div class="stat-l">Estudiantes<br>formados</div></div>
         <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">Modalidades<br>de estudio</div></div>
         <div class="stat-item"><div class="stat-n">100%</div><div class="stat-l">Respaldo<br>profesional</div></div>
@@ -932,7 +735,7 @@
         <!-- Featured -->
         <div class="course-featured reveal" style="margin-top:3rem;">
             <div class="cf-img">
-                <div class="cf-badge">⭐ Más popular</div>
+                <div class="cf-badge">⭐ Muy pronto</div>
                 <!-- REPLACE: background-image: url('../img/curso-revit.jpg') -->
                 <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/curso-revit.jpg<br>Pantalla de Revit / modelado BIM<br>900×600px</div></div>
             </div>
@@ -946,8 +749,7 @@
                     <span><span class="m-icon">📍</span> Presencial + Virtual</span>
                     <span><span class="m-icon">📜</span> Certificado de finalización</span>
                 </div>
-                <div class="course-price"><sup>Bs. </sup>350</div>
-                <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='Revit Architecture desde Cero a Profesional'">Inscribirse →</button>
+                <div class="badge-soon">⏳ Próximamente</div>
             </div>
         </div>
 
@@ -966,8 +768,7 @@
                         <span><span class="m-icon">📅</span> 4 semanas</span>
                         <span><span class="m-icon">📍</span> Presencial / Virtual</span>
                     </div>
-                    <div class="course-price"><sup>Bs. </sup>200</div>
-                    <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='SketchUp Pro + V-Ray'">Inscribirse →</button>
+                    <div class="badge-soon">⏳ Próximamente</div>
                 </div>
             </div>
             <!-- Course 2 -->
@@ -984,8 +785,7 @@
                         <span><span class="m-icon">📅</span> 3 semanas</span>
                         <span><span class="m-icon">📍</span> Virtual (Zoom)</span>
                     </div>
-                    <div class="course-price"><sup>Bs. </sup>180</div>
-                    <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='Renders Fotorrealistas'">Inscribirse →</button>
+                    <div class="badge-soon">⏳ Próximamente</div>
                 </div>
             </div>
             <!-- Course 3 -->
@@ -1002,8 +802,7 @@
                         <span><span class="m-icon">📅</span> 5 sesiones</span>
                         <span><span class="m-icon">📍</span> Solo Presencial · Sucre</span>
                     </div>
-                    <div class="course-price"><sup>Bs. </sup>150</div>
-                    <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='Maquetería Arquitectónica'">Inscribirse →</button>
+                    <div class="badge-soon">⏳ Próximamente</div>
                 </div>
             </div>
             <!-- Course 4 -->
@@ -1020,68 +819,8 @@
                         <span><span class="m-icon">📅</span> 3 semanas</span>
                         <span><span class="m-icon">📍</span> Virtual / Presencial</span>
                     </div>
-                    <div class="course-price"><sup>Bs. </sup>160</div>
-                    <button class="btn-inscribir" onclick="document.getElementById('inscribirse').scrollIntoView({behavior:'smooth'});document.getElementById('i-curso').value='Láminas de Presentación'">Inscribirse →</button>
+                    <div class="badge-soon">⏳ Próximamente</div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ENROLLMENT FORM -->
-    <section class="enroll-section" id="inscribirse">
-        <div class="enroll-wrap reveal">
-            <div class="enroll-info">
-                <div class="sec-label">Inscripción</div>
-                <h2>Únete a<br><em>Zahyo Academy</em></h2>
-                <p>Completa el formulario y te contactaremos para confirmar tu inscripción, método de pago y horario disponible.</p>
-                <div class="modality-pills" style="margin-top:1.5rem;">
-                    <div class="pill active">Presencial</div>
-                    <div class="pill">Virtual (Zoom)</div>
-                    <div class="pill">Híbrido</div>
-                </div>
-                <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--glass-b);background:var(--glass);">
-                    <div style="font-family:var(--ff-mono);font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Consultas directas</div>
-                    <div style="display:flex;flex-direction:column;gap:.75rem;">
-                        <a href="https://wa.me/59173443086" target="_blank" style="font-size:.85rem;color:var(--warm-dim);text-decoration:none;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">📱 WhatsApp: +591 73443086</a>
-                        <a href="mailto:axis.estudiodesign@gmail.com" style="font-size:.85rem;color:var(--warm-dim);text-decoration:none;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--warm-dim)'">✉️ axis.estudiodesign@gmail.com</a>
-                    </div>
-                </div>
-            </div>
-            <div class="form-card">
-                <h3>Formulario de Inscripción</h3>
-                <form id="enrollForm">
-                    <div class="form-row">
-                        <div class="fg"><label>Nombre completo *</label><input type="text" id="i-nombre" placeholder="Tu nombre" required></div>
-                        <div class="fg"><label>CI / Carnet</label><input type="text" id="i-ci" placeholder="Número de CI"></div>
-                    </div>
-                    <div class="form-row">
-                        <div class="fg"><label>Teléfono / WhatsApp *</label><input type="tel" id="i-tel" placeholder="+591 7XXXXXXX" required></div>
-                        <div class="fg"><label>Correo electrónico</label><input type="email" id="i-email" placeholder="tu@correo.com"></div>
-                    </div>
-                    <div class="fg">
-                        <label>Curso de interés *</label>
-                        <select id="i-curso" required>
-                            <option value="" disabled selected>Selecciona un curso</option>
-                            <option>Revit Architecture desde Cero a Profesional</option>
-                            <option>SketchUp Pro + V-Ray</option>
-                            <option>Renders Fotorrealistas</option>
-                            <option>Maquetería Arquitectónica</option>
-                            <option>Láminas de Presentación</option>
-                            <option>Asesoramiento personalizado</option>
-                            <option>Otro</option>
-                        </select>
-                    </div>
-                    <div class="fg">
-                        <label>Modalidad preferida</label>
-                        <select id="i-modalidad">
-                            <option>Presencial (Sucre)</option>
-                            <option>Virtual (Zoom)</option>
-                            <option>Híbrido</option>
-                        </select>
-                    </div>
-                    <div class="fg"><label>Mensaje / Consulta</label><textarea id="i-mensaje" placeholder="Cuéntanos tu nivel de experiencia, disponibilidad horaria, o cualquier consulta..."></textarea></div>
-                    <button type="submit" class="btn-submit" id="btnEnroll">Enviar inscripción →</button>
-                </form>
             </div>
         </div>
     </section>
@@ -1096,41 +835,32 @@
             <li><a href="../index.html#contacto">Contacto</a></li>
         </ul>
         <div class="footer-bottom">
-            <p>© 2025 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
+            <p>© 2026 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
             <span>SUCRE · BOLIVIA</span>
         </div>
     </footer>
 
-    <div class="toast" id="toast"></div>
-
     <script>
-        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbySTNnS0S67tcWpSMHVl6qvoauiDCpTH-EY7CqTDN7xXa7l0cXGIgjjIQjJvf1Sijkn/exec';
-        const WA = '59173443086';
-
         const cur = document.getElementById('cur'), curRing = document.getElementById('curRing');
-        document.addEventListener('mousemove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; setTimeout(() => { curRing.style.left = e.clientX + 'px'; curRing.style.top = e.clientY + 'px'; }, 60); });
+        document.addEventListener('mousemove', e => {
+            cur.style.left = e.clientX + 'px';
+            cur.style.top = e.clientY + 'px';
+            setTimeout(() => {
+                curRing.style.left = e.clientX + 'px';
+                curRing.style.top = e.clientY + 'px';
+            }, 60);
+        });
+
         const ham = document.getElementById('ham'), mob = document.getElementById('mobNav'), mc = document.getElementById('mobClose');
         ham.addEventListener('click', () => mob.classList.toggle('open'));
         mc.addEventListener('click', () => mob.classList.remove('open'));
-        const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: .07 });
+
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('in');
+            });
+        }, { threshold: .07 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-        document.getElementById('enrollForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const btn = document.getElementById('btnEnroll');
-            btn.textContent = 'Enviando...'; btn.disabled = true;
-            const payload = { tipo: 'inscripcion', nombre: document.getElementById('i-nombre').value, ci: document.getElementById('i-ci').value, telefono: document.getElementById('i-tel').value, email: document.getElementById('i-email').value, curso: document.getElementById('i-curso').value, modalidad: document.getElementById('i-modalidad').value, mensaje: document.getElementById('i-mensaje').value };
-            try {
-                await fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
-                showToast('✓ Inscripción enviada. ¡Te confirmaremos pronto!'); this.reset();
-            } catch (err) {
-                const msg = encodeURIComponent(`Hola ZAHYO!\nQuiero inscribirme en: ${payload.curso}\nNombre: ${payload.nombre}\nTel: ${payload.telefono}\nModalidad: ${payload.modalidad}`);
-                window.open(`https://wa.me/${WA}?text=${msg}`, '_blank');
-            }
-            btn.textContent = 'Enviar inscripción →'; btn.disabled = false;
-        });
-
-        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }
     </script>
 </body>
 </html>

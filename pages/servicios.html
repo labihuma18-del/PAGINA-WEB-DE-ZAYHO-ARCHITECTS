@@ -244,6 +244,7 @@
             cursor: none;
             text-transform: uppercase;
         }
+
         /* PAGE HERO */
         .page-hero {
             padding-top: 72px;
@@ -330,6 +331,7 @@
             margin-top: 1.25rem;
             max-width: 44ch;
         }
+
         /* SERVICES GRID */
         .services-section {
             padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
@@ -415,6 +417,7 @@
             padding: .2rem .6rem;
             color: var(--warm-dim);
         }
+
         /* SHOWCASE */
         .showcase {
             padding: 0 clamp(1.5rem,5vw,4rem) clamp(5rem,8vw,9rem);
@@ -462,6 +465,7 @@
                 color: var(--warm-dim);
                 margin-top: .25rem;
             }
+
         /* PROCESS */
         .process {
             padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
@@ -531,6 +535,7 @@
         .step:last-child::after {
             display: none;
         }
+
         /* QUOTE FORM */
         .quote-section {
             padding: clamp(5rem,8vw,9rem) clamp(1.5rem,5vw,4rem);
@@ -580,6 +585,59 @@
                 font-weight: 300;
                 margin-bottom: 2rem;
             }
+
+        /* ── ESTILOS TOKEN STATUS ── */
+        .token-status {
+            font-family: var(--ff-mono);
+            font-size: .55rem;
+            letter-spacing: .12em;
+            padding: .6rem .85rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            text-transform: uppercase;
+        }
+
+            .token-status.loading {
+                color: var(--warm-dim);
+                background: rgba(255,255,255,.03);
+                border: 1px solid rgba(196,113,58,.1);
+            }
+
+            .token-status.ready {
+                color: #34D399;
+                background: rgba(52,211,153,.06);
+                border: 1px solid rgba(52,211,153,.2);
+            }
+
+            .token-status.error {
+                color: #F87171;
+                background: rgba(248,113,113,.06);
+                border: 1px solid rgba(248,113,113,.2);
+            }
+
+        .ts-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+
+            .ts-dot.pulse {
+                animation: pulse 1.4s infinite;
+            }
+
+        @keyframes pulse {
+            0%,100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
 
         .fg {
             margin-bottom: 1.25rem;
@@ -651,6 +709,12 @@
             .btn-submit:hover {
                 background: var(--copper-lt);
             }
+
+            .btn-submit:disabled {
+                opacity: 0.6;
+                pointer-events: none;
+            }
+
         /* FOOTER */
         footer {
             background: var(--ink2);
@@ -907,7 +971,17 @@
             </div>
             <div class="form-card">
                 <h3>Solicitar Cotización</h3>
+
+                <!-- ── INDICADOR DE TOKEN ── -->
+                <div class="token-status loading" id="tokenStatus">
+                    <div class="ts-dot pulse"></div>
+                    <span id="tokenMsg">Conectando con el servidor...</span>
+                </div>
+
                 <form id="quoteForm">
+                    <!-- HONEYPOT ANTI-BOTS -->
+                    <input type="text" name="honeypot" id="honeypot" style="display:none;" tabindex="-1" autocomplete="off">
+
                     <div class="form-row">
                         <div class="fg"><label>Nombre *</label><input type="text" id="q-nombre" placeholder="Tu nombre" required></div>
                         <div class="fg"><label>Teléfono</label><input type="tel" id="q-tel" placeholder="+591 7XXXXXXX"></div>
@@ -944,36 +1018,119 @@
             <li><a href="../index.html#contacto">Contacto</a></li>
         </ul>
         <div class="footer-bottom">
-            <p>© 2025 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
+            <p>© 2026 ZAHYO estudio de arquitectura. Todos los derechos reservados.</p>
             <span>SUCRE · BOLIVIA</span>
         </div>
     </footer>
     <div class="toast" id="toast"></div>
 
     <script>
-        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbySTNnS0S67tcWpSMHVl6qvoauiDCpTH-EY7CqTDN7xXa7l0cXGIgjjIQjJvf1Sijkn/exec';
+        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyeop2BzZ1KNKHynUhbVSJXukVqturyv-sQjscHNdWgShgC4mRKQFzr4Ym42zFQ2wtz/exec';
         const WA = '59173443086';
+
+        let tokenSeguridad = '';
+        let tokenIntentos = 0;
+        const TOKEN_MAX_REINTENTOS = 3;
+
+        const tsEl = document.getElementById('tokenStatus');
+        const tsMsg = document.getElementById('tokenMsg');
+
+        // ── PETICIÓN DEL TOKEN DE SEGURIDAD ──
+        async function pedirToken() {
+            tsEl.className = 'token-status loading';
+            tsMsg.textContent = 'Conectando con el servidor...';
+            tsEl.querySelector('.ts-dot').classList.add('pulse');
+
+            try {
+                const resp = await fetch(SHEETS_URL + '?action=token&t=' + Date.now());
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                const data = await resp.json();
+
+                if (data.ok && data.data && data.data.token) {
+                    tokenSeguridad = data.data.token;
+                    tsEl.className = 'token-status ready';
+                    tsMsg.textContent = '✓ Conectado — puedes enviar el formulario';
+                    tsEl.querySelector('.ts-dot').classList.remove('pulse');
+                } else {
+                    throw new Error('Token inválido en respuesta');
+                }
+            } catch (err) {
+                tokenIntentos++;
+                if (tokenIntentos < TOKEN_MAX_REINTENTOS) {
+                    tsMsg.textContent = 'Reconectando... (intento ' + tokenIntentos + ')';
+                    setTimeout(pedirToken, 3000);
+                } else {
+                    tsEl.className = 'token-status error';
+                    tsMsg.textContent = '⚠ Sin conexión — se enviará por WhatsApp';
+                    tsEl.querySelector('.ts-dot').classList.remove('pulse');
+                }
+            }
+        }
+        window.addEventListener('load', pedirToken);
+
+        // ── EFECTOS VISUALES ──
         const cur = document.getElementById('cur'), curRing = document.getElementById('curRing');
         document.addEventListener('mousemove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; setTimeout(() => { curRing.style.left = e.clientX + 'px'; curRing.style.top = e.clientY + 'px'; }, 60); });
+
         const ham = document.getElementById('ham'), mob = document.getElementById('mobNav'), mc = document.getElementById('mobClose');
         ham.addEventListener('click', () => mob.classList.toggle('open'));
         mc.addEventListener('click', () => mob.classList.remove('open'));
+
         const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: .07 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        // ── MANEJO DEL FORMULARIO ──
         document.getElementById('quoteForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const btn = document.getElementById('btnQuote');
-            btn.textContent = 'Enviando...'; btn.disabled = true;
-            const payload = { tipo: 'contacto', nombre: document.getElementById('q-nombre').value, telefono: document.getElementById('q-tel').value, email: document.getElementById('q-email').value, servicio: document.getElementById('q-servicio').value || 'No especificado', mensaje: document.getElementById('q-mensaje').value };
+            const honeypot = document.getElementById('honeypot').value;
+
+            btn.textContent = 'Enviando...';
+            btn.disabled = true;
+
+            const payload = {
+                tipo: 'contacto',
+                token: tokenSeguridad,
+                honeypot: honeypot,
+                form: {
+                    nombre: document.getElementById('q-nombre').value,
+                    telefono: document.getElementById('q-tel').value,
+                    email: document.getElementById('q-email').value,
+                    servicio: document.getElementById('q-servicio').value || 'No especificado',
+                    mensaje: document.getElementById('q-mensaje').value
+                }
+            };
+
             try {
-                await fetch(SHEETS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
-                showToast('✓ Cotización enviada. ¡Te contactaremos pronto!'); this.reset();
+                if (!tokenSeguridad) throw new Error('Sin conexión segura (Token faltante)');
+
+                const response = await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.ok) {
+                    showToast('✓ Solicitud enviada. ¡Te contactaremos pronto!');
+                    this.reset();
+                    // Refrescar el token por seguridad
+                    tokenSeguridad = '';
+                    setTimeout(pedirToken, 500);
+                } else {
+                    throw new Error(result.error || 'Error en el servidor');
+                }
             } catch (err) {
-                const msg = encodeURIComponent(`Hola ZAHYO!\nNombre: ${payload.nombre}\nServicio: ${payload.servicio}\n\n${payload.mensaje}`);
+                // Fallback a WhatsApp
+                const msg = encodeURIComponent(`Hola ZAHYO!\nNombre: ${payload.form.nombre}\nServicio: ${payload.form.servicio}\n\n${payload.form.mensaje}`);
                 window.open(`https://wa.me/${WA}?text=${msg}`, '_blank');
             }
-            btn.textContent = 'Enviar solicitud →'; btn.disabled = false;
+
+            btn.textContent = 'Enviar solicitud →';
+            btn.disabled = false;
         });
+
         function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }
         (function loadImages() { document.querySelectorAll('[data-img]').forEach(el => { const src = el.dataset.img; if (!src) return; const img = new Image(); img.onload = () => { el.style.backgroundImage = `url('${src}')`; const ph = el.querySelector('.photo-ph'); if (ph) ph.style.display = 'none'; }; img.src = src; }); })();
     </script>

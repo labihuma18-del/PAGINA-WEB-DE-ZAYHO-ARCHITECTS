@@ -291,6 +291,21 @@
         }
 
         /* CART DRAWER */
+        .cart-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.5);
+            z-index: 1499;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .4s;
+        }
+
+            .cart-backdrop.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
         .cart-drawer {
             position: fixed;
             top: 0;
@@ -308,21 +323,6 @@
 
             .cart-drawer.open {
                 transform: translateX(0);
-            }
-
-        .cart-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.5);
-            z-index: 1499;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity .4s;
-        }
-
-            .cart-backdrop.open {
-                opacity: 1;
-                pointer-events: all;
             }
 
         .cart-header {
@@ -474,6 +474,58 @@
             .btn-checkout:hover {
                 background: var(--bronze-lt);
             }
+
+        /* TOKEN STATUS */
+        .token-status {
+            font-family: var(--ff-mono);
+            font-size: .55rem;
+            letter-spacing: .12em;
+            padding: .5rem .85rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+            .token-status.loading {
+                color: var(--warm-dim);
+                background: rgba(255,255,255,.03);
+                border: 1px solid rgba(212,175,55,.1);
+            }
+
+            .token-status.ready {
+                color: #34D399;
+                background: rgba(52,211,153,.06);
+                border: 1px solid rgba(52,211,153,.2);
+            }
+
+            .token-status.error {
+                color: #F87171;
+                background: rgba(248,113,113,.06);
+                border: 1px solid rgba(248,113,113,.2);
+            }
+
+        .ts-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+
+            .ts-dot.pulse {
+                animation: pulse 1.4s infinite;
+            }
+
+        @keyframes pulse {
+            0%,100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
 
         /* CHECKOUT MODAL */
         .modal-bg {
@@ -654,10 +706,16 @@
             cursor: none;
             transition: all .3s;
             margin-top: 1rem;
+            font-weight: 600;
         }
 
             .btn-order:hover {
                 background: var(--bronze-lt);
+            }
+
+            .btn-order:disabled {
+                opacity: .6;
+                transform: none;
             }
 
         .btn-wa-order {
@@ -807,7 +865,7 @@
             max-width: 44ch;
         }
 
-        /* FILTER TABS */
+        /* FILTER & GRID */
         .shop-section {
             padding: clamp(4rem,6vw,7rem) clamp(1.5rem,5vw,4rem);
         }
@@ -838,7 +896,6 @@
                 background: var(--gold-dim);
             }
 
-        /* PRODUCTS GRID */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(3,1fr);
@@ -991,7 +1048,7 @@
                 color: var(--ink);
             }
 
-        /* TRACKING SECTION */
+        /* TRACKING */
         .tracking-section {
             background: var(--ink2);
             border-top: 1px solid var(--glass-b);
@@ -1064,6 +1121,7 @@
             cursor: none;
             white-space: nowrap;
             transition: all .3s;
+            font-weight: 600;
         }
 
             .btn-track:hover {
@@ -1119,6 +1177,12 @@
         }
 
         .status-recibido {
+            color: #F59E0B;
+            border-color: #F59E0B;
+            background: rgba(245,158,11,.08);
+        }
+
+        .status-pendiente {
             color: #F59E0B;
             border-color: #F59E0B;
             background: rgba(245,158,11,.08);
@@ -1192,8 +1256,36 @@
             font-family: var(--ff-display);
             font-style: italic;
             font-size: 1rem;
-            padding: 1rem;
+            padding: 1.5rem;
             text-align: center;
+            border: 1px solid rgba(212,175,55,.2);
+        }
+
+        .track-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .75rem;
+            padding: 2rem;
+            color: var(--warm-dim);
+            font-family: var(--ff-display);
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        .track-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(212,175,55,.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         footer {
@@ -1386,7 +1478,7 @@
     <!-- HERO -->
     <section class="page-hero">
         <div class="page-hero-bg" data-img="../img/hero-tienda.jpg">
-            <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/hero-tienda.jpg<br>Recursos digitales / maquetas / productos del estudio<br>1920×1080px</div></div>
+            <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/hero-tienda.jpg<br>Recursos digitales / maquetas<br>1920×1080px</div></div>
         </div>
         <div class="page-hero-vignette"></div>
         <div class="page-hero-label">SHOP</div>
@@ -1412,7 +1504,7 @@
             <div class="product-card" data-category="digital" data-name="Pack Texturas Arquitectónicas Vol.1" data-price="85" data-id="prod-001">
                 <div class="prod-img">
                     <div class="prod-img-inner" data-img="../img/prod-texturas.jpg" style="background:linear-gradient(135deg,#1a2030,#080a12);">
-                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-texturas.jpg<br>Pack texturas<br>600×600px</div></div>
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-texturas.jpg</div></div>
                     </div>
                     <div class="prod-badge">Digital</div>
                     <div class="prod-overlay"></div>
@@ -1432,7 +1524,7 @@
             <div class="product-card" data-category="plantillas" data-name="Plantilla Láminas de Presentación" data-price="65" data-id="prod-002">
                 <div class="prod-img">
                     <div class="prod-img-inner" data-img="../img/prod-plantillas.jpg" style="background:linear-gradient(135deg,#1c1408,#100a04);">
-                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-plantillas.jpg<br>Plantilla láminas<br>600×600px</div></div>
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-plantillas.jpg</div></div>
                     </div>
                     <div class="prod-badge">Plantilla</div>
                     <div class="prod-overlay"></div>
@@ -1452,7 +1544,7 @@
             <div class="product-card" data-category="maqueta" data-name="Maqueta a Escala 1:50 (por encargo)" data-price="350" data-id="prod-003">
                 <div class="prod-img">
                     <div class="prod-img-inner" data-img="../img/prod-maqueta-1-50.jpg" style="background:linear-gradient(135deg,#0f1008,#0a0806);">
-                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-maqueta-1-50.jpg<br>Maqueta 1:50<br>600×600px</div></div>
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-maqueta-1-50.jpg</div></div>
                     </div>
                     <div class="prod-badge">Por encargo</div>
                     <div class="prod-overlay"></div>
@@ -1472,7 +1564,7 @@
             <div class="product-card" data-category="digital" data-name="Familia de Mobiliario Revit Vol.1" data-price="120" data-id="prod-004">
                 <div class="prod-img">
                     <div class="prod-img-inner" data-img="../img/prod-familias-revit.jpg" style="background:linear-gradient(135deg,#100a18,#0d0a06);">
-                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-familias-revit.jpg<br>Familias Revit<br>600×600px</div></div>
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-familias-revit.jpg</div></div>
                     </div>
                     <div class="prod-badge">Digital</div>
                     <div class="prod-overlay"></div>
@@ -1492,7 +1584,7 @@
             <div class="product-card" data-category="asesoría" data-name="Sesión de Asesoría 1h (Zoom)" data-price="100" data-id="prod-005">
                 <div class="prod-img">
                     <div class="prod-img-inner" data-img="../img/prod-asesoria.jpg" style="background:linear-gradient(135deg,#0a1218,#060a0e);">
-                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-asesoria.jpg<br>Asesoría online<br>600×600px</div></div>
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-asesoria.jpg</div></div>
                     </div>
                     <div class="prod-badge">Servicio</div>
                     <div class="prod-overlay"></div>
@@ -1512,7 +1604,7 @@
             <div class="product-card" data-category="maqueta" data-name="Maqueta Urbana 1:200 (por encargo)" data-price="600" data-id="prod-006">
                 <div class="prod-img">
                     <div class="prod-img-inner" data-img="../img/prod-maqueta-urbana.jpg" style="background:linear-gradient(135deg,#141020,#0a0810);">
-                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-maqueta-urbana.jpg<br>Maqueta urbana<br>600×600px</div></div>
+                        <div class="photo-ph"><div class="ph-icon">📷</div><div class="ph-label">img/prod-maqueta-urbana.jpg</div></div>
                     </div>
                     <div class="prod-badge">Por encargo</div>
                     <div class="prod-overlay"></div>
@@ -1538,7 +1630,7 @@
             <h2>Seguir mi <em>pedido</em></h2>
             <p>Ingresa el código PED que recibiste al confirmar tu pedido.</p>
             <div class="tracking-form">
-                <input type="text" id="trackCode" placeholder="PED-20250101-001" maxlength="22">
+                <input type="text" id="trackCode" placeholder="PED-20250501-XXXX" maxlength="25">
                 <button class="btn-track" id="btnTrack">Consultar →</button>
             </div>
             <div class="tracking-result" id="trackingResult"></div>
@@ -1564,8 +1656,55 @@
 
     <script>
         // ── CONFIG ──────────────────────────────────────────────────────
-        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbySTNnS0S67tcWpSMHVl6qvoauiDCpTH-EY7CqTDN7xXa7l0cXGIgjjIQjJvf1Sijkn/exec';
+        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyeop2BzZ1KNKHynUhbVSJXukVqturyv-sQjscHNdWgShgC4mRKQFzr4Ym42zFQ2wtz/exec';
         const WA_NUMBER = '59173443086';
+
+        // ── TOKEN — igual que en apoyo.html ─────────────────────────────
+        let tokenSeguridad = '';
+        let tokenIntentos = 0;
+        const TOKEN_MAX_REINTENTOS = 3;
+
+        /**
+         * Actualiza el elemento #tokenStatus si existe en el DOM.
+         * (Solo aparece cuando el modal de checkout está abierto.)
+         */
+        function _setTokenUI(cls, msg, pulse) {
+            const el = document.getElementById('tokenStatus');
+            if (!el) return;
+            el.className = 'token-status ' + cls;
+            const dot = el.querySelector('.ts-dot');
+            const span = el.querySelector('.ts-text');
+            if (span) span.textContent = msg;
+            if (dot) dot.classList.toggle('pulse', pulse);
+        }
+
+        async function pedirToken() {
+            _setTokenUI('loading', 'Conectando con el servidor...', true);
+            try {
+                const resp = await fetch(SHEETS_URL + '?action=token&t=' + Date.now());
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                const data = await resp.json();
+                if (data.ok && data.data && data.data.token) {
+                    tokenSeguridad = data.data.token;
+                    _setTokenUI('ready', '✓ Conectado — puedes confirmar tu pedido', false);
+                } else {
+                    throw new Error('Token inválido en respuesta');
+                }
+            } catch (err) {
+                tokenIntentos++;
+                console.warn('Token intento ' + tokenIntentos + ':', err.message);
+                if (tokenIntentos < TOKEN_MAX_REINTENTOS) {
+                    _setTokenUI('loading', 'Reconectando... (intento ' + tokenIntentos + ')', true);
+                    setTimeout(pedirToken, 3000);
+                } else {
+                    tokenSeguridad = '';
+                    _setTokenUI('error', '⚠ Sin conexión al servidor — usa el botón de WhatsApp', false);
+                }
+            }
+        }
+
+        // Solicitar token al cargar la página (igual que apoyo)
+        window.addEventListener('load', pedirToken);
 
         // ── STATE ────────────────────────────────────────────────────────
         let cart = JSON.parse(localStorage.getItem('zahyo_cart') || '[]');
@@ -1578,18 +1717,19 @@
         });
 
         // ── MOBILE NAV ───────────────────────────────────────────────────
-        const ham = document.getElementById('ham'), mob = document.getElementById('mobNav'), mc = document.getElementById('mobClose');
+        const ham = document.getElementById('ham'), mob = document.getElementById('mobNav');
         ham.addEventListener('click', () => mob.classList.toggle('open'));
-        mc.addEventListener('click', () => mob.classList.remove('open'));
+        document.getElementById('mobClose').addEventListener('click', () => mob.classList.remove('open'));
 
         // ── REVEAL ───────────────────────────────────────────────────────
-        const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: .07 });
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { threshold: .07 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
         // ── IMAGE LOADER ─────────────────────────────────────────────────
         document.querySelectorAll('[data-img]').forEach(el => {
-            const src = el.dataset.img;
-            if (!src) return;
+            const src = el.dataset.img; if (!src) return;
             const img = new Image();
             img.onload = () => {
                 el.style.backgroundImage = `url('${src}')`;
@@ -1621,16 +1761,13 @@
             saveCart(); updateCartUI(); openCart();
             showToast('✓ ' + item.name.substring(0, 32) + '… agregado');
         }
-
         function removeFromCart(id) { cart = cart.filter(i => i.id !== id); saveCart(); updateCartUI(); }
         function saveCart() { localStorage.setItem('zahyo_cart', JSON.stringify(cart)); }
         function cartTotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
 
-        // ── GENERATE PED CODE ─────────────────────────────────────────────
         function generatePedCode() {
-            const now = new Date();
-            const d = now.toISOString().slice(0, 10).replace(/-/g, '');
-            const r = String(Math.floor(Math.random() * 900) + 100);
+            const d = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+            const r = Math.random().toString(36).substring(2, 6).toUpperCase();
             return 'PED-' + d + '-' + r;
         }
 
@@ -1677,6 +1814,18 @@
 
         function openCheckout() {
             closeCart();
+
+            // Estado del token al abrir el modal
+            const tokenState = tokenSeguridad
+                ? 'ready'
+                : (tokenIntentos >= TOKEN_MAX_REINTENTOS ? 'error' : 'loading');
+            const tokenMsg = tokenSeguridad
+                ? '✓ Conectado — puedes confirmar tu pedido'
+                : (tokenIntentos >= TOKEN_MAX_REINTENTOS
+                    ? '⚠ Sin conexión al servidor — usa el botón de WhatsApp'
+                    : 'Conectando con el servidor...');
+            const tokenPulse = !tokenSeguridad && tokenIntentos < TOKEN_MAX_REINTENTOS;
+
             const summary = cart.map(i => `
                     <div class="os-item">
                         <span class="name">${i.name} ×${i.qty}</span>
@@ -1684,17 +1833,30 @@
                     </div>`).join('');
 
             document.getElementById('modalBody').innerHTML = `
+                    <!-- Indicador de conexión al servidor — igual que apoyo.html -->
+                    <div class="token-status ${tokenState}" id="tokenStatus">
+                        <div class="ts-dot ${tokenPulse ? 'pulse' : ''}"></div>
+                        <span class="ts-text">${tokenMsg}</span>
+                    </div>
+
                     <div class="order-summary">
                         <div class="os-title">Resumen del pedido</div>
                         ${summary}
                         <div class="os-total"><span class="label">Total</span><span class="amount">Bs. ${cartTotal().toFixed(0)}</span></div>
                     </div>
+
+                    <!-- HONEYPOT oculto (anti-bot) -->
+                    <div style="position:absolute;left:-9999px;opacity:0;">
+                        <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off">
+                    </div>
+
                     <div class="form-row">
                         <div class="fg"><label>Nombre completo *</label><input type="text" id="o-nombre" placeholder="Tu nombre" required></div>
                         <div class="fg"><label>Teléfono / WhatsApp *</label><input type="tel" id="o-tel" placeholder="+591 7XXXXXXX" required></div>
                     </div>
-                    <div class="fg"><label>Correo electrónico</label><input type="email" id="o-email" placeholder="tu@correo.com"></div>
-                    <div class="fg"><label>Notas del pedido</label><textarea id="o-notas" placeholder="Dirección de entrega, instrucciones, etc." style="min-height:70px;resize:vertical;"></textarea></div>
+                    <div class="fg"><label>Correo electrónico *</label><input type="email" id="o-email" placeholder="tu@correo.com" required></div>
+                    <div class="fg"><label>Notas del pedido</label><textarea id="o-notas" placeholder="Dirección de entrega, instrucciones especiales, etc." style="min-height:70px;resize:vertical;"></textarea></div>
+
                     <button class="btn-order" id="btnOrder">Confirmar pedido →</button>
                     <button class="btn-wa-order" id="btnOrderWA">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -1704,53 +1866,119 @@
             document.getElementById('checkoutModal').classList.add('open');
             document.getElementById('btnOrder').addEventListener('click', submitOrder);
             document.getElementById('btnOrderWA').addEventListener('click', orderViaWhatsApp);
+
+            // Si el token aún no llegó, reintentarlo ahora que el indicador es visible
+            if (!tokenSeguridad && tokenIntentos < TOKEN_MAX_REINTENTOS) {
+                tokenIntentos = 0;
+                pedirToken();
+            }
         }
 
         function closeCheckout() { document.getElementById('checkoutModal').classList.remove('open'); }
 
+        // ── SUBMIT — misma lógica de seguridad que apoyo.html ────────────
         async function submitOrder() {
-            const nombre = document.getElementById('o-nombre')?.value || '';
-            const tel = document.getElementById('o-tel')?.value || '';
-            const email = document.getElementById('o-email')?.value || '';
-            const notas = document.getElementById('o-notas')?.value || '';
-            if (!nombre || !tel) { showToast('⚠ Completa nombre y teléfono.'); return; }
+            const nombre = document.getElementById('o-nombre')?.value.trim() || '';
+            const tel = document.getElementById('o-tel')?.value.trim() || '';
+            const email = document.getElementById('o-email')?.value.trim() || '';
+            const notas = document.getElementById('o-notas')?.value.trim() || '';
+
+            // Validaciones del lado cliente
+            if (!nombre) { showToast('⚠ Completa tu nombre.'); return; }
+            if (!tel) { showToast('⚠ Completa tu teléfono/WhatsApp.'); return; }
+            if (!email) { showToast('⚠ Completa tu correo electrónico.'); return; }
+
+            // Sin token → fallback WhatsApp
+            if (!tokenSeguridad) {
+                showToast('⚠ Sin conexión al servidor. Enviando por WhatsApp...');
+                setTimeout(() => orderViaWhatsApp(), 1000);
+                return;
+            }
 
             const btn = document.getElementById('btnOrder');
-            btn.textContent = 'Enviando pedido...'; btn.disabled = true;
+            const localCode = generatePedCode(); // código optimista para WA fallback
 
-            // ✅ FIX PRINCIPAL: Generar código ANTES del POST y pasarlo al backend
-            const localCode = generatePedCode();
+            btn.disabled = true;
+            btn.textContent = 'Enviando pedido...';
 
+            // Productos como string legible (el backend espera sanitizeText, no JSON)
+            const productosStr = cart
+                .map(i => `${i.name} x${i.qty} = Bs.${(i.price * i.qty).toFixed(0)}`)
+                .join(' | ');
+
+            // Payload idéntico en estructura al de apoyo.html:
+            // honeypot + token al nivel raíz, datos dentro de form{}
             const payload = {
+                honeypot: document.getElementById('honeypot')?.value || '',
+                token: tokenSeguridad,
                 tipo: 'pedido',
-                codigo_frontend: localCode,   // ← clave del fix de tracking
-                nombre, telefono: tel, email,
-                productos: cart.map(i => ({ nombre: i.name, precio: i.price * i.qty })),
-                total: cartTotal().toFixed(0),
-                notas,
+                form: {
+                    nombre,
+                    telefono: tel,
+                    email,
+                    productos: productosStr,
+                    total: cartTotal().toFixed(2),
+                    notas,
+                }
             };
 
             try {
-                await fetch(SHEETS_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(payload)
-                });
-                showOrderSuccess(localCode, nombre);
-                cart = []; saveCart(); updateCartUI();
-            } catch (err) {
-                orderViaWhatsApp();
-            }
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 35000);
 
-            btn.textContent = 'Confirmar pedido →'; btn.disabled = false;
+                const resp = await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload),
+                    signal: controller.signal,
+                });
+                clearTimeout(timeoutId);
+
+                const raw = await resp.text();
+                let result;
+                try {
+                    result = JSON.parse(raw);
+                } catch (_) {
+                    throw new Error('Respuesta inesperada del servidor.');
+                }
+
+                if (result.ok) {
+                    // Usa el código que generó el servidor (garantiza que coincide con Sheets)
+                    const codigoConfirmado = (result.data && result.data.codigo)
+                        ? result.data.codigo
+                        : localCode;
+                    showOrderSuccess(codigoConfirmado, nombre);
+                    cart = []; saveCart(); updateCartUI();
+                    // Renueva el token para futuros pedidos
+                    tokenSeguridad = '';
+                    tokenIntentos = 0;
+                    setTimeout(pedirToken, 500);
+                } else {
+                    console.error('Error servidor:', result.error);
+                    showToast('⚠ ' + (result.error || 'Error en el servidor. Redirigiendo a WhatsApp...'));
+                    setTimeout(() => orderViaWhatsApp(), 1200);
+                }
+
+            } catch (err) {
+                console.error('Error de envío:', err);
+                const msg = err.name === 'AbortError'
+                    ? '⏱ Tiempo de espera agotado. Enviando por WhatsApp...'
+                    : '⚠ Error de red. Redirigiendo a WhatsApp...';
+                showToast(msg);
+                setTimeout(() => orderViaWhatsApp(), 1200);
+            } finally {
+                if (btn) { btn.disabled = false; btn.textContent = 'Confirmar pedido →'; }
+            }
         }
 
+        // ── WHATSAPP FALLBACK ────────────────────────────────────────────
         function orderViaWhatsApp() {
-            const nombre = document.getElementById('o-nombre')?.value || 'Cliente';
-            const tel = document.getElementById('o-tel')?.value || '';
+            const nombre = document.getElementById('o-nombre')?.value.trim() || 'Cliente';
+            const tel = document.getElementById('o-tel')?.value.trim() || '';
             const lista = cart.map(i => `• ${i.name} ×${i.qty} = Bs.${(i.price * i.qty).toFixed(0)}`).join('\n');
-            const msg = encodeURIComponent(`¡Hola ZAHYO! Quiero realizar un pedido:\n\nNombre: ${nombre}\nTeléfono: ${tel}\n\nProductos:\n${lista}\n\nTOTAL: Bs. ${cartTotal().toFixed(0)}`);
+            const msg = encodeURIComponent(
+                `¡Hola ZAHYO! Quiero realizar un pedido.\n\nNombre: ${nombre}\nTeléfono: ${tel}\n\nProductos:\n${lista}\n\nTOTAL: Bs. ${cartTotal().toFixed(0)}`
+            );
             window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
         }
 
@@ -1768,8 +1996,7 @@
                     </div>`;
         }
 
-        // ── TRACKING ─────────────────────────────────────────────────────
-        // ✅ FIX: fetch sin mode:'cors' explícito, con redirect:'follow'
+        // ── TRACKING — respuesta correcta: data.data.resultado ───────────
         document.getElementById('btnTrack').addEventListener('click', trackOrder);
         document.getElementById('trackCode').addEventListener('keydown', e => { if (e.key === 'Enter') trackOrder(); });
 
@@ -1778,22 +2005,34 @@
             const resultDiv = document.getElementById('trackingResult');
             if (!code) { showToast('⚠ Ingresa un código de seguimiento.'); return; }
 
-            resultDiv.innerHTML = '<p style="text-align:center;color:var(--warm-dim);padding:1rem;font-family:var(--ff-display);font-style:italic;">Consultando...</p>';
+            resultDiv.innerHTML = '<div class="track-loading"><div class="track-spinner"></div> Consultando tu pedido...</div>';
             resultDiv.classList.add('visible');
 
             try {
-                const url = SHEETS_URL + '?tipo=tracking&codigo=' + encodeURIComponent(code);
-                const resp = await fetch(url, { redirect: 'follow' });
-                const data = await resp.json();
+                const url = `${SHEETS_URL}?tipo=tracking&codigo=${encodeURIComponent(code)}&t=${Date.now()}`;
+                const controller = new AbortController();
+                const tid = setTimeout(() => controller.abort(), 20000);
+                const resp = await fetch(url, { signal: controller.signal });
+                clearTimeout(tid);
 
-                if (data.ok && data.resultado) {
-                    const r = data.resultado;
-                    const statusClass = {
+                const raw = await resp.text();
+                // Seguridad: verificar que es JSON antes de parsear
+                if (!raw.trim().startsWith('{')) {
+                    throw new Error('Respuesta inesperada del servidor. Verifica que el script esté desplegado.');
+                }
+                const data = JSON.parse(raw);
+
+                // La respuesta del backend es: { ok: true, data: { resultado: {...} } }
+                if (data.ok && data.data && data.data.resultado) {
+                    const r = data.data.resultado;
+                    const statusMap = {
+                        'Pendiente': 'status-pendiente',
                         'Recibido': 'status-recibido',
                         'En proceso': 'status-en-proceso',
                         'Listo': 'status-listo',
                         'Entregado': 'status-entregado',
-                    }[r.estado] || 'status-recibido';
+                    };
+                    const statusClass = statusMap[r.estado] || 'status-pendiente';
 
                     resultDiv.innerHTML = `
                             <div class="track-card">
@@ -1805,15 +2044,28 @@
                                     <div class="track-field"><label>Tipo</label><p>${r.tipo || '—'}</p></div>
                                     <div class="track-field"><label>Cliente</label><p>${r.cliente || '—'}</p></div>
                                     <div class="track-field"><label>Fecha de solicitud</label><p>${r.fecha_creacion || '—'}</p></div>
-                                    <div class="track-field"><label>Responsable</label><p>${r.responsable || 'ZAHYO Shop'}</p></div>
+                                    <div class="track-field"><label>Responsable</label><p>${r.responsable || 'Equipo ZAHYO'}</p></div>
                                 </div>
                                 ${r.notas ? `<div class="track-notes"><label>Notas del equipo</label><p>${r.notas}</p></div>` : ''}
                             </div>`;
                 } else {
-                    resultDiv.innerHTML = `<div class="track-error">No se encontró el código <strong>${code}</strong>. Verifica que esté escrito correctamente.<br><br><a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20consulto%20mi%20pedido%20${encodeURIComponent(code)}" target="_blank" style="color:var(--gold);text-decoration:none;">¿Necesitas ayuda? Escríbenos →</a></div>`;
+                    resultDiv.innerHTML = `
+                            <div class="track-error">
+                                No se encontró el código <strong>${code}</strong>.<br>
+                                Verifica que esté correcto o consulta directamente.<br><br>
+                                <a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20consulto%20mi%20pedido%20${encodeURIComponent(code)}" target="_blank" style="color:var(--gold);text-decoration:none;">Consultar por WhatsApp →</a>
+                            </div>`;
                 }
             } catch (err) {
-                resultDiv.innerHTML = `<div class="track-error">Error de conexión. <a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20consulto%20pedido%3A%20${encodeURIComponent(code)}" target="_blank" style="color:var(--gold);text-decoration:none;">Consulta por WhatsApp →</a></div>`;
+                console.error('Tracking error:', err);
+                const msg = err.name === 'AbortError'
+                    ? 'Tiempo de espera agotado. Intenta de nuevo.'
+                    : err.message;
+                resultDiv.innerHTML = `
+                        <div class="track-error">
+                            ${msg}<br><br>
+                            <a href="https://wa.me/${WA_NUMBER}?text=Hola%20ZAHYO%2C%20consulto%20mi%20pedido%3A%20${encodeURIComponent(code)}" target="_blank" style="color:var(--gold);text-decoration:none;">Consultar por WhatsApp →</a>
+                        </div>`;
             }
         }
 
@@ -1821,7 +2073,7 @@
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.textContent = msg; t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 3200);
+            setTimeout(() => t.classList.remove('show'), 3500);
         }
     </script>
 </body>
