@@ -1496,6 +1496,11 @@
 
                 <!-- ── FORM ── -->
                 <form id="apoyoForm" novalidate>
+                    <!-- TRAMPA PARA BOTS (Honeypot) -->
+                    <div style="position: absolute; left: -9999px; opacity: 0;">
+                        <label for="honeypot">No llenes esto si eres humano</label>
+                        <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off">
+                    </div>
 
                     <!-- STEP 1: ÁREAS -->
                     <div class="form-step-title">Áreas de apoyo *</div>
@@ -1827,7 +1832,18 @@
             const r = String(Math.floor(Math.random() * 900) + 100);
             return 'APY-' + d + '-' + r;
         }
-
+        // ── SISTEMA DE SEGURIDAD (TOKEN) ─────────────────────────────────
+        let tokenSeguridad = '';
+        window.addEventListener('load', async function () {
+            try {
+                const resp = await fetch(SHEETS_URL + '?action=token');
+                const data = await resp.json();
+                tokenSeguridad = data.token;
+                console.log("Sistema de seguridad en línea.");
+            } catch (error) {
+                console.error("No se pudo conectar la seguridad.");
+            }
+        });
         // ── FORM SUBMIT ──────────────────────────────────────────────────
         document.getElementById('apoyoForm').addEventListener('submit', async function(e) {
             e.preventDefault();
