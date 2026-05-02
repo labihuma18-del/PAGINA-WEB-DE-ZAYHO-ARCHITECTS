@@ -464,8 +464,8 @@
         .modules {
             display: grid;
             grid-template-columns: repeat(4,1fr);
-            height: 100vh;
-            min-height: 600px;
+            height: 65vh;
+            min-height: 500px;
         }
 
         .mod-card {
@@ -483,26 +483,27 @@
             position: absolute;
             inset: 0;
             transition: transform 1s cubic-bezier(.4,0,.2,1);
-            background-size: cover;
+            /* Usamos !important para evitar que los gradientes de abajo borren estas reglas */
+            background-size: cover ;
             background-position: center;
+            background-repeat: no-repeat ;
         }
 
         .mod-card:nth-child(1) .mod-bg {
-            background: linear-gradient(160deg,#1a2030,#080a12);
+            background-image: linear-gradient(160deg,#1a2030,#080a12);
         }
 
         .mod-card:nth-child(2) .mod-bg {
-            background: linear-gradient(160deg,#1c1408,#100a04);
+            background-image: linear-gradient(160deg,#1c1408,#100a04);
         }
 
         .mod-card:nth-child(3) .mod-bg {
-            background: linear-gradient(160deg,#100a18,#08060e);
+            background-image: linear-gradient(160deg,#100a18,#08060e);
         }
 
         .mod-card:nth-child(4) .mod-bg {
-            background: linear-gradient(160deg,#141208,#0a0806);
+            background-image: linear-gradient(160deg,#141208,#0a0806);
         }
-
         .mod-overlay {
             position: absolute;
             inset: 0;
